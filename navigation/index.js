@@ -11,12 +11,17 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Auth from "containers/auth";
 import Dashboard from "containers/dashboard";
 import Profile from "containers/profile";
-import Trip from "containers/trip";
-
-
+// import Trip from "containers/trip";
+import Home from "containers/home";
+import Register from "containers/register";
+import AddTrip from "containers/addtrip";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+
+
+const activeTabIconColor = "#F7230D";
+const nonActiveTabIconColor = "#F2B9B3";
 
 
 
@@ -28,16 +33,22 @@ class BottomTab extends React.Component{
 
     render(){
         return(
-            <Tab.Navigator>
-                <Tab.Screen name = "Profile" component = {Profile}  options={{tabBarIcon:({focused})=>
-                ( <Ionicons name= {focused ? "ios-home" : "ios-egg"} color="red" size = {focused ? 32 : 20}/> )
+            <Tab.Navigator  tabBarOptions={{
+                activeTintColor: activeTabIconColor,
+                inactiveTintColor: nonActiveTabIconColor,
+              }}>
+                 {/* <Tab.Screen name = "Home" component = {Home}   options={{tabBarIcon:({focused})=>
+                ( <Ionicons name= "ios-home" color={focused ?  activeTabIconColor: nonActiveTabIconColor} size = {focused ? 30 : 20}/> )
                 }}/>
+                 */}
                 <Tab.Screen name = "Dashboard" component = {Dashboard}   options={{tabBarIcon:({focused})=>
-                ( <Ionicons name= {focused ? "ios-home" : "ios-egg"} color="red" size = {focused ? 32 : 20}/> )
+                ( <Ionicons name= "md-calendar" color={focused ? activeTabIconColor : nonActiveTabIconColor} size = {focused ? 30 : 20}/> )
                 }}/>
-                <Tab.Screen name = "Trip" component = {Trip}   options={{tabBarIcon:({focused})=>
-                ( <Ionicons name= {focused ? "ios-home" : "ios-egg"} color="red" size = {focused ? 32 : 20}/> )
+
+                <Tab.Screen name = "Profile" component = {Profile}  options={{tabBarIcon:({focused})=>
+                ( <Ionicons name= "ios-contact" color={focused ? activeTabIconColor : nonActiveTabIconColor} size = {focused ? 30 : 20}/> )
                 }}/>
+               
             </Tab.Navigator>
         )
     }
@@ -52,9 +63,26 @@ class Navigator extends React.Component{
                 <StatusBar style = {{backgroundColor : "red"}}/>
                 <Stack.Navigator>
 
-                    <Stack.Screen name = "Auth" component = {Auth}/>
+                
+                    {/* <Stack.Screen name = "AddTrip" component = {AddTrip} options = {{
+                        headerShown: false, 
+                     
+                        
+                    }}/> */}
+                    <Stack.Screen name = "Auth" component = {Auth} options = {{
+                        headerShown: false, 
+                     
+                        
+                    }}/>
+
+
+                     <Stack.Screen name = "Register" component = {Register} options = {{
+                        headerShown: false, 
+                     
+                        
+                    }}/>
                     <Stack.Screen name = "BottomTab" component = {BottomTab} options = {{
-                        headerShown: true, 
+                        headerShown: false, 
                         headerTintColor: "blue",
                         
                     }}/>

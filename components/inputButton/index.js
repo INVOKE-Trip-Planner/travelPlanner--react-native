@@ -1,6 +1,11 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet} from "react-native";
 
+
+
+const ButtonColor = "#F7230D";
+
+
 class InputButton extends React.Component{
     render(){
         return(
@@ -18,18 +23,21 @@ const styles = StyleSheet.create({
     button : {
         
         borderColor : "black",
-        borderWidth: 2,
-        width : 200,
+        borderWidth: 1,
+        width : "100%",
         height : 50,
         borderRadius : 20,
         display : "flex",
         justifyContent : "center",
-        alignItems:  "center"
+        alignItems:  "center",
+        backgroundColor : ButtonColor
     },
 
     buttonName : {
-        color : "red",
+        color : "white",
         position : "absolute",
+        fontWeight: "bold",
+        fontSize : 20
        
           
         
