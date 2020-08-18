@@ -19,7 +19,7 @@ function* login({ data }) {
 
     console.log(response);
     yield put(Actions.loginSuccess(response.data));
-    // yield put(Actions.activateUserSession(response.data.token));
+    yield put(Actions.activateUserSession(response.data.token));
 
     //update the usersession
 

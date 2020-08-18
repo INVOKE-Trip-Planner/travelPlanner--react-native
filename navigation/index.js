@@ -15,6 +15,7 @@ import Profile from "containers/profile";
 import Home from "containers/home";
 import Register from "containers/register";
 import AddTrip from "containers/addtrip";
+import TripDetails from "containers/tripdetails";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -39,15 +40,15 @@ class BottomTab extends React.Component{
               }}>
                  {/* <Tab.Screen name = "Home" component = {Home}   options={{tabBarIcon:({focused})=>
                 ( <Ionicons name= "ios-home" color={focused ?  activeTabIconColor: nonActiveTabIconColor} size = {focused ? 30 : 20}/> )
-                }}/>
-                 */}
+                }}/> */}
+                
                 <Tab.Screen name = "Dashboard" component = {Dashboard}   options={{tabBarIcon:({focused})=>
                 ( <Ionicons name= "md-calendar" color={focused ? activeTabIconColor : nonActiveTabIconColor} size = {focused ? 30 : 20}/> )
                 }}/>
-
+{/* 
                 <Tab.Screen name = "Profile" component = {Profile}  options={{tabBarIcon:({focused})=>
                 ( <Ionicons name= "ios-contact" color={focused ? activeTabIconColor : nonActiveTabIconColor} size = {focused ? 30 : 20}/> )
-                }}/>
+                }}/> */}
                
             </Tab.Navigator>
         )
@@ -69,6 +70,8 @@ class Navigator extends React.Component{
                      
                         
                     }}/> */}
+                  
+
                     <Stack.Screen name = "Auth" component = {Auth} options = {{
                         headerShown: false, 
                      
@@ -76,14 +79,21 @@ class Navigator extends React.Component{
                     }}/>
 
 
-                     <Stack.Screen name = "Register" component = {Register} options = {{
+                     {/* <Stack.Screen name = "Register" component = {Register} options = {{
                         headerShown: false, 
                      
                         
-                    }}/>
+                    }}/> */}
                     <Stack.Screen name = "BottomTab" component = {BottomTab} options = {{
                         headerShown: false, 
                         headerTintColor: "blue",
+                        
+                    }}/>
+
+
+                      <Stack.Screen name = "TripDetails" component = {TripDetails} options = {{
+                        headerShown: true, 
+                     
                         
                     }}/>
                 </Stack.Navigator>

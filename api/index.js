@@ -10,4 +10,7 @@ export const register = data => {
   return fetchApi("post", "api/register", data);
 };
 
+export const getAll = headers => {
+  return fetchApi("get", "api/trip", null, headers );
+};
 

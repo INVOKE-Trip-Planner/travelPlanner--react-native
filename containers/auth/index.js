@@ -5,6 +5,8 @@ import {View, Text, TouchableOpacity, StyleSheet, Alert, Image} from "react-nati
 import InputButton from "components/inputButton";
 import InputForm from "components/inputForm";
 import Banner from "components/banner";
+import AddButton from "components/addbutton";
+
 
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -40,11 +42,15 @@ class Auth extends React.Component{
   // functions to pass data from this.state into a constant data.
     loginButtonPressed() {
 
+        // const data = {
+        //     username: this.state.username,
+        //     password : this.state.password
+        //   }
         const data = {
-            username: this.state.username,
-            password : this.state.password
-          }
-          
+          username: 'test0000', //this.state.username,
+          password : 'test0000', //this.state.password,
+        }
+
         this.props.onLogin(data);
 
         console.log(data)
@@ -176,7 +182,11 @@ class Auth extends React.Component{
 
                   </View>
 
+
             </View>
+
+
+            
 
           
         </View>
@@ -225,7 +235,7 @@ const mapStateToProps = store => ({
 
   });
 
-  // dipatch actions from view
+  // dipatch actions from 
   const mapDispatchToProps = {
 
     // onLogin is a props,
