@@ -104,8 +104,14 @@ class Register extends React.Component{
         }
 
         this.props.onRegister(data)
+        
+        Alert.alert("Registration Success", "Thank you registering with us",
+        [{
+          text : "Back to Login",
+          onPress : () => {this.props.navigation.navigate("Auth")}
 
         // console.log(data)
+      }]);   
 
         
         
@@ -235,8 +241,8 @@ class Register extends React.Component{
 
                 <View style = {styles.inputBox}>
 
-                <TouchableOpacity onPress = {() => this.setState({showBirthday: !this.state.showBirthday}, () => console.log(this.state.showBirthday)) }>
-                    { this.state.isBirthdaySelected ? <Text>{this.state.birth_date_old}</Text> : <Text>Your Birthday</Text>} 
+                <TouchableOpacity style = {styles.setCalendarStyle} onPress = {() => this.setState({showBirthday: !this.state.showBirthday}, () => console.log(this.state.showBirthday)) }>
+                    { this.state.isBirthdaySelected ? <Text style = {{color : "white", padding : 10}}>{this.state.birth_date_old}</Text> : <Text style = {{color : "white", padding : 10}}>Your Birthday</Text>} 
                 </TouchableOpacity>
 
 
@@ -244,7 +250,7 @@ class Register extends React.Component{
                 value = {this.state.date}
                 mode = {this.state.mode}
                 onChange = {(event,selectedDate) => this.setState({showBirthday:false, 
-                  birth_date_old:moment(selectedDate).format("DD-MM-YYYY"), 
+                  birth_date_old:moment(selectedDate).format("YYYY-MM-DD"), 
                   birth_date:moment(selectedDate).format("YYYY-MM-DD"), 
                   isBirthdaySelected: true}, console.log(this.state.birth_date_old))}
                 
@@ -301,7 +307,24 @@ const styles = {
       height : 50,
       justifyContent : "center",
       marginBottom : 10
-    }
+    },
+
+    setCalendarStyle : {
+
+      fontSize : 16, 
+      textAlign :"center", 
+      width : "100%", 
+      height : 40, 
+      justifyContent: "center", 
+      color : "white",
+      lineHeight:40, 
+      backgroundColor:"red", 
+      borderColor : "black", 
+      borderWidth : 1,
+      marginBottom : 10
+
+  },
+
 
 }
 

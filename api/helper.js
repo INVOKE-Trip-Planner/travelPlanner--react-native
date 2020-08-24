@@ -11,7 +11,7 @@ export const getHeader = () => {
 };
 
 const getFullUrl = endpoint => {
-  return "http://4cfd70ad7c03.ngrok.io/" + endpoint;
+  return "http://ac18e99e5bc5.ngrok.io/" + endpoint;
 };
 
 const fetchApi = (method, endpoint, params, headers) =>

@@ -38,15 +38,16 @@ const styles = StyleSheet.create({
         width : "100%",
         height: 60,
         backgroundColor : null,
-        borderColor : "black",
-        borderWidth : 1,
+        // borderColor : "black",
+        borderBottomWidth : 1,
         display : "flex",
         flexDirection : "row",
         justifyContent : "space-between",
         alignItems : "center",
         paddingHorizontal : 20,
         // position : "absolute",
-        zIndex : 2
+        zIndex : 2,
+        marginTop: 20,
 
     }, 
 

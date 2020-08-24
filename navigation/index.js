@@ -79,11 +79,11 @@ class Navigator extends React.Component{
                     }}/>
 
 
-                     {/* <Stack.Screen name = "Register" component = {Register} options = {{
+                     <Stack.Screen name = "Register" component = {Register} options = {{
                         headerShown: false, 
                      
                         
-                    }}/> */}
+                    }}/>
                     <Stack.Screen name = "BottomTab" component = {BottomTab} options = {{
                         headerShown: false, 
                         headerTintColor: "blue",
