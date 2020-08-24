@@ -15,12 +15,11 @@ class TripDetails extends React.Component{
         let data = this.props.route.params.detailsData; // to pass data between parent chilren
         // console.log("Trip Data is: ", data.item.destinations[0].id)
         this.state = {
-            trip: data,
             data_destination_array : data.item.destinations,
             selected : data.item.destinations[0].id,
-            accommodationsdatafortheid : data.item.destinations[0].accommodations,
-            transportsdatafortheid : data.item.destinations[0].transports,
-            itinerariesdatafortheid : data.item.destinations[0].itineraries,
+            // accommodationsdatafortheid : data.item.destinations[0].accommodations,
+            // transportsdatafortheid : data.item.destinations[0].transports,
+            // itinerariesdatafortheid : data.item.destinations[0].itineraries,
             showaaccommodation : true,
             showtransports : true,
             showitineraries : true,
@@ -29,7 +28,8 @@ class TripDetails extends React.Component{
             accommodations : "accommodations",
             transports : "transports",
             iternary : "iternary",
-
+            showselectdestination : false,
+            showfiltertripdestination : false
         }
 
         let data_destination_array = data.item.destinations;
@@ -43,7 +43,7 @@ class TripDetails extends React.Component{
     
     _renderItemList(item){
 
-        // console.log("renderitemishere",item.item.transports)
+        // console.log("renderitemishere",item.item)
     
             return(
 
@@ -53,9 +53,14 @@ class TripDetails extends React.Component{
                 itinerariesdatafortheid : item.item.itineraries,
                 })}
                 style = {{backgroundColor : null}}>
-                <View style = {[{marginHorizontal : 10, height : 50, width : 100, justifyContent : "center", alignItems : "center", borderRadius : 20}, {backgroundColor : this.state.selected == item.item.id ? ButtonColor : "white"}]}>
-                    <Text>{item.item.location}</Text>
+                <View style = {[{marginHorizontal : 10, height : 80, width : 200, justifyContent : "center", alignItems : "flex-start", marginVertical : 10, paddingLeft: 10}, {backgroundColor : this.state.selected == item.item.id ? ButtonColor : "white"}]}>
+                    <Text>Destination : {item.item.location}</Text>
+                    <Text>Start Date : {item.item.start_date}</Text>
+                    <Text>End Date : {item.item.end_date}</Text>
                 </View>
+
+
+                
                 </TouchableOpacity>
             )
     
@@ -67,8 +72,14 @@ class TripDetails extends React.Component{
         // console.log(this.props.detailsData);
         return (
             <ScrollView>
-                <View style = {{alignItems : "center", marginBottom :10}}>
-                    <Text style = {{backgroundColor :'red', width : "100%", color : "white", textAlign :"center", marginBottom : 10}}>Select your Destination</Text>
+                <View style = {{alignItems : "center"}}>
+                    <TouchableOpacity onPress = {() => {this.setState({showselectdestination: !this.state.showselectdestination})}}style = {{width : "100%"}}>
+                        <Text style = {{backgroundColor :'red', width : "100%", color : "white", textAlign :"center"}}>Select your Destination</Text>
+                    </TouchableOpacity>
+
+
+                    {this.state.showselectdestination &&
+                   
                     <FlatList
                     style = {{backgroundColor : null}}
                     data = {this.state.data_destination_array}
@@ -82,14 +93,19 @@ class TripDetails extends React.Component{
 
                    </FlatList>
 
+                    }
+
                    <View>
                        {/* <Text>Destination ID is {this.state.selected}</Text> */}
                    </View>
                 </View>
 
-                <Text style = {{backgroundColor :'red', width : "100%", color : "white", textAlign :"center", marginBottom : 10}}>Filter Trip Detail By  </Text>
+                <TouchableOpacity onPress = {() => this.setState({showfiltertripdestination : !this.state.showfiltertripdestination})}>
+                    <Text style = {{backgroundColor :'red', width : "100%", color : "white", textAlign :"center", marginBottom : 10}}>Filter Trip Detail By  </Text>
+                </TouchableOpacity>
 
 
+                { this.state.showfiltertripdestination &&
                 <View style = {{flexDirection :"row",width : "100%", justifyContent : "space-between", paddingHorizontal : 20}}>
                     <TouchableOpacity onPress = {() => this.setState({showaaccommodation: true, showtransports: true, showitineraries: true, filterselected :this.state.all })}>
                         <Text style = {{color : this.state.filterselected == this.state.all ? "green" : "blue"}}>All</Text>
@@ -105,6 +121,8 @@ class TripDetails extends React.Component{
                     </TouchableOpacity>
                     
                 </View>
+
+                }
 
                 <View style = {{width : "100%", backgroundColor : null, alignItems :"center"}}>
 

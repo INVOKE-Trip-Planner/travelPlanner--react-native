@@ -1,5 +1,5 @@
 import React from "react";
-import {View, Text, FlatList, TouchableOpacity, Modal, Picker, Alert, StatusBar} from "react-native";
+import {View, Text, FlatList, TouchableOpacity, Modal, Picker, Alert, StatusBar, Image} from "react-native";
 import Header from "components/header";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from "moment";
@@ -21,7 +21,28 @@ const ButtonColor = "#F7230D";
 
 
 
-
+const data_test = [
+    {
+        user_id : 1,
+        trip_id : 2
+    },
+    {
+        user_id : 2,
+        trip_id : 2
+    },
+    {
+        user_id : 3,
+        trip_id : 2
+    },
+    {
+        user_id : 5,
+        trip_id : 2
+    },
+    {
+        user_id : 1,
+        trip_id : 2
+    },
+]
 
 
 
@@ -85,28 +106,54 @@ class Dashboard extends React.Component{
       
     }
 
+    _renderItemList2(item){
+
+        return(
+
+            <View style = {{flexDirection : "row", backgroundColor  : null}}>
+                        <Ionicons  name= "md-person" style = {{fontSize : 20, color : "black"}}/>   
+            </View>
+        )
+    }
 
 
     _renderItemList(item){
 
-        console.log("render item is here " , item.item.destinations.length)
+        // console.log("render item is here " , item.item.destinations.length)
 
 
 
         return(
 
         
-            <View style = {{width : 300, height : 300, backgroundColor : null, marginTop : 20, borderColor : ButtonColor, borderWidth : 1, borderRadius : 20, justifyContent : "center", alignItems : "center"}} >
+            <View style = {{width : 300, height : 300, backgroundColor : null,  borderColor : ButtonColor, borderWidth : 1, borderRadius : 20, alignItems : "center", marginVertical : 10}} >
                 
                 <View >
+
+                    <Image style = {{borderTopLeftRadius : 20, borderTopRightRadius: 20, height : 150}}source ={require("assets/bannerplaceholder.jpg")}/>
+
                     <Text>Trip ID : {item.item.id}</Text>
                     <Text>Trip Name : {item.item.trip_name}</Text>
                     <Text>Origin : {item.item.origin}</Text>
-                    <Text>Created By : {item.item.created_by}</Text>
-                    <Text>Start Date : {item.item.start_date}</Text>
-                    <Text>End Date : {item.item.end_date}</Text>
-                    <Text>Trip Banner : {item.item.trip_banner}</Text>
-                    <Text>End</Text>
+                    <Text>Created By : User {item.item.created_by}</Text>
+                    {/* <Text>Start Date : {item.item.start_date}</Text>
+                    <Text>End Date : {item.item.end_date}</Text> */}
+                    {/* <Text>Trip Banner : {item.item.trip_banner}</Text>
+                    <Text>End</Text> */}
+
+
+                     <FlatList
+
+                        style = {{backgroundColor : null}}
+                        data = {data_test}
+                        renderItem = {(item) => this._renderItemList2(item)}
+                        numColumns = {1}
+                        contentContainerStyle= {{alignItems : "center"}}
+                        horizontal = {true}
+                    
+                        >
+
+                    </FlatList>
                 </View>
                 
                 
@@ -242,13 +289,15 @@ class Dashboard extends React.Component{
 
         }
 
+        console.log(data.start_date)
+        console.log(data.end_date)
+        
 
 
-        if (data.end_date < data.start_date){
-            Alert.alert("Failed to Add Destination", "Your start date must be before your end date")
-
-            this.setState({showModal2:true})
-        }
+        if(data.location.length == 0){
+            Alert.alert("Failed to Add Destination", "Please fill in your Destination name")
+  
+            this.setState({showModal2:true})}
 
 
         else if(data.start_date < moment().format("YYYY-MM-DD")){
@@ -257,17 +306,16 @@ class Dashboard extends React.Component{
           this.setState({showModal2:true})
 
         }
+  
+        else if (data.end_date <= data.start_date){
+            Alert.alert("Failed to Add Destination", "Your start date must be before your end date")
 
-
-        else if(data.location.length == 0){
-          Alert.alert("Failed to Add Destination", "Please fill in your Destination name")
-
-          this.setState({showModal2:true})
-
+            this.setState({showModal2:true})
         }
 
 
         
+     
 
         else{
 
@@ -362,18 +410,7 @@ class Dashboard extends React.Component{
                             
 
                 
-                {this.state.showstartDate && <DateTimePicker
-                value = {this.state.date}
-                mode = {this.state.mode}
-                onChange = {(event,selectedDate) => this.setState({
-                    showstartDate:false, 
-                    selectedStartDate_old:moment(selectedDate).format("YYYY-MM-DD"), 
-                    selectedStartDate:moment(selectedDate).format("YYYY-MM-DD")}, 
-                    )}
                 
-               
-                
-                />}
 
 
                 <InputForm 
@@ -396,16 +433,22 @@ class Dashboard extends React.Component{
                   />
 
 
-                  <TouchableOpacity onPress = {() => this.setState({showstartDate: !this.state.showstartDate}) }>
+                {/* <TouchableOpacity onPress = {() => this.setState({showstartDate: !this.state.showstartDate}) }>
                         <Text style = {styles.setCalendarStyle}>Set Start Date</Text>
                 </TouchableOpacity>
 
-
-
+                {this.state.showstartDate && <DateTimePicker
+                value = {this.state.date}
+                mode = {this.state.mode}
+                onChange = {(event,selectedDate) => this.setState({
+                    showstartDate:false, 
+                    selectedStartDate_old:moment(selectedDate).format("YYYY-MM-DD"), 
+                    selectedStartDate:moment(selectedDate).format("YYYY-MM-DD")}, 
+                    )}
+                
+                />}
 
                 <Text style = {styles.CalendarStyle} >{this.state.selectedStartDate_old}</Text>
-
-
 
                 <TouchableOpacity onPress = {() => this.setState({showendtDate: !this.state.showendtDate}) }>
                     <Text style = {styles.setCalendarStyle}>Set End Date</Text>
@@ -426,7 +469,7 @@ class Dashboard extends React.Component{
                 
                 />}
 
-                <Text style = {styles.CalendarStyle}>{this.state.selectedEndDate_old}</Text>
+                <Text style = {styles.CalendarStyle}>{this.state.selectedEndDate_old}</Text> */}
 
                
 

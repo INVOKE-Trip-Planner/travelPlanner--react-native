@@ -1,18 +1,394 @@
 import React from "react";
-import {View, Text} from "react-native";
+import {ScrollView, View, Text, TouchableOpacity, StyleSheet, Alert, Image, FlatList, Modal } from "react-native";
+
 import Header from "components/header";
+
+import Actions from "actions";
+import {connect} from "react-redux"
+
+
+import InputButton from "components/inputButton";
+import InputForm from "components/inputForm";
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
+
+
+import moment from "moment";
+import DateTimePicker from '@react-native-community/datetimepicker';
+
+
+
 
 
 
 class Profile extends React.Component{
+        constructor(props){
+            super(props) 
+            console.log("profile props", props)
+            this.state = {
+
+                showModal : false,
+                name : "test", 
+                username : "",
+                email : "",
+                password : "",
+                password_confirmation : "",
+                phone : "",
+                gender : "MALE",
+                birth_date_old : moment().format("DD-MM-YYYY"),
+                birth_date : moment().format("YYYY-MM-DD"),   
+                date : new Date(),
+
+                   
+                  }
+
+
+        }
+
+
+        
+      
+
+        modalUpdatebuttonPressed(){
+
+            const data = {
+                name : this.state.name,
+                username : this.state.username,
+                email : this.state.email,
+                password : this.state.password,
+                password_confirmation : this.state.password_confirmation,
+                phone : this.state.phone,
+                gender : "MALE",
+                birth_date : moment().format("YYYY-MM-DD"),   
+            }
+
+            console.log(data)
+            this.props.onUserUpdate(data)
+
+        }
+
+        logoutPressed() {
+            this.props.onResetUserSessions();
+            Alert.alert("Bubye", "Logout Succesfully", [{
+                text: "Okay",
+                onPress :() => this.props.navigation.navigate("Auth")
+            }])
+    
+        }
     render(){
         return(
-            <View>
+            <View style = {{flex : 1, backgroundColor:  "lightblue", alignItems : "center"}}>
                 <Header/>
-                <Text>This is the Profile page</Text>
+
+
+
+               
+                <Image style = {styles.userQRCode}source={require('assets/userqrcode.png')}
+                />
+
+                 <Image style = {styles.userPhoto} source={require('assets/placeholder.jpg')}
+                />
+
+                <View>
+
+                    <Text>Name { this.state.name}</Text>
+                    <Text>Email</Text>
+                    <Text>Password</Text>
+                    <Text>Password Confirmation</Text>
+                    <Text>Phone Number</Text>
+                    {/* <Text>Gender</Text> */}
+                    <Text>Birthday</Text>
+
+                </View>
+
+                <TouchableOpacity style = {{marginVertical : 10, backgroundColor : "red", width : 200, height : 50, justifyContent : "center", borderRadius : 20 }} onPress = {() => {this.logoutPressed()}}>
+                    <Text style = {{color : "white", textAlign :"center"}}>LOGOUT</Text>
+                </TouchableOpacity>
+
+
+                <TouchableOpacity style = {{marginVertical : 10, backgroundColor : "red", width : 200, height : 50, justifyContent : "center", borderRadius : 20 }} onPress = {() => {this.setState({showModal:true})}}>
+                    <Text style = {{color : "white", textAlign :"center"}}>UPDATE PROFILE</Text>
+                </TouchableOpacity>
+
+
+
+
+                {this.state.showModal && 
+                <Modal
+                    animationType="fade"
+                    transparent={true}
+                >
+
+                    <View style = {styles.ModalFlex}>
+                        <ScrollView style = {styles.ModalBackGround}>
+                            <TouchableOpacity style = {{position : "absolute", right : 0, top : 0, zIndex : 3}} onPress = {() => this.setState({showModal : false})}>
+                                <Text style = {{color : "red"}}>CLOSE</Text>
+                            </TouchableOpacity>
+
+                            
+                            <View style= {styles.centerScrollView}>
+                
+                                <View style = {styles.ModalBackGroundInside}>
+                
+                
+
+                
+                 <View style = {styles.mainBox}>
+
+                <View style = {styles.inputBox}>
+
+
+                  <InputForm inputPlaceHolder = "Your Name" 
+                  inputKeyType = "default" 
+                  inputSecure = {false} 
+                  icon = "ios-ionitron"
+                  onChange = {(name)=> this.setState({name:name}, 
+                  
+                  )}
+                  />
+
+                </View>
+                <View style = {styles.inputBox}>
+
+
+                  <InputForm inputPlaceHolder = "Your Username" 
+                  inputKeyType = "default" 
+                  inputSecure = {false} 
+                  icon = "ios-contact"
+                  onChange = {(username)=> this.setState({username:username}, 
+                  
+                  )}
+                  />
+
+                </View>
+                <View style = {styles.inputBox}>
+
+
+                  <InputForm inputPlaceHolder = "Your Email" 
+                  inputKeyType = "email-address" 
+                  inputSecure = {false} 
+                  icon = "ios-mail"
+                  onChange = {(email)=> this.setState({email:email}, 
+                  
+                  )}
+                  />
+
+                </View>
+
+                <View style = {styles.inputBox}>
+
+                  <InputForm inputPlaceHolder = "Your Password" 
+                    inputKeyType = "default" 
+                     icon = "md-lock"
+                    inputSecure = {this.state.hidePass} 
+                    onChange = {(password)=> this.setState({password:password}, 
+                    )}/>
+
+                    <TouchableOpacity style = {{ zIndex : 2, position: "absolute", top : "50%", right : 10, transform:[{translateX : 0}, { translateY : -10} ]}}
+                    onPress = {() => this.setState({hidePass: !this.state.hidePass})}>
+                        <Ionicons  name= {this.state.hidePass ? "ios-eye" : "ios-eye-off"} style = {{fontSize : 20, color : "red"}}/>   
+                    </TouchableOpacity>
+
+                </View >
+                <View style = {styles.inputBox}>
+
+                  <InputForm inputPlaceHolder = "Your Password" 
+                    inputKeyType = "default" 
+                     icon = "md-lock"
+                    inputSecure = {this.state.hidePass} 
+                    onChange = {(password_confirmation)=> this.setState({password_confirmation:password_confirmation}, 
+                    )}/>
+
+                    <TouchableOpacity style = {{ zIndex : 2, position: "absolute", top : "50%", right : 10, transform:[{translateX : 0}, { translateY : -10} ]}}
+                    onPress = {() => this.setState({hidePass: !this.state.hidePass})}>
+                        <Ionicons  name= {this.state.hidePass ? "ios-eye" : "ios-eye-off"} style = {{fontSize : 20, color : "red"}}/>   
+                    </TouchableOpacity>
+
+                </View >
+
+                <View style = {styles.inputBox}>
+
+
+                  <InputForm inputPlaceHolder = "Your Phone Number" 
+                  inputKeyType = "number-pad" 
+                  inputSecure = {false} 
+                  icon = "ios-call"
+                  onChange = {(phone)=> this.setState({phone:phone}, 
+                  
+                  )}
+                  />
+
+                </View>
+
+                <View style = {styles.inputBox}>
+
+{/* 
+                 <Picker
+                    selectedValue={this.state.gender}
+                    style={{ height: 50, width: "100%", justifyContent : "center"  , borderColor : "black", borderWidth : 2 }}
+                    onValueChange={(itemValue, itemIndex) => this.setState({gender:itemValue}, () => console.log(this.state.gender))}
+                  >
+                    <Picker.Item label="MALE" value="MALE" />
+                    <Picker.Item label="FEMALE" value="FEMALE" />
+                    <Picker.Item label="OTHER" value="OTHER" />
+                  </Picker>
+
+ */}
+
+
+
+
+
+                 
+
+                </View>
+
+                <View style = {styles.inputBox}>
+
+                <TouchableOpacity style = {styles.setCalendarStyle} onPress = {() => this.setState({showBirthday: !this.state.showBirthday}, () => console.log(this.state.showBirthday)) }>
+                    { this.state.isBirthdaySelected ? <Text style = {{color : "white", padding : 10}}>{this.state.birth_date_old}</Text> : <Text style = {{color : "white", padding : 10}}>Your Birthday</Text>} 
+                </TouchableOpacity>
+
+
+                  { this.state.showBirthday && <DateTimePicker
+                value = {this.state.date}
+                mode = {this.state.mode}
+                onChange = {(event,selectedDate) => this.setState({showBirthday:false, 
+                  birth_date_old:moment(selectedDate).format("YYYY-MM-DD"), 
+                  birth_date:moment(selectedDate).format("YYYY-MM-DD"), 
+                  isBirthdaySelected: true}, console.log(this.state.birth_date_old))}
+                
+                
+                
+                />}
+
+
+                 
+
+
+                </View>
+                
+                  <InputButton buttonName = "Update Profile  " navigate = {() => this.modalUpdatebuttonPressed()} />
+
+
+                  
+            </View>
+
+                </View>
+                        </View>
+
+                        </ScrollView>
+                    </View>
+
+                </Modal>
+                }
+                
+
             </View>
         )
     }
 }
 
-export default Profile;
+
+
+const styles = {
+
+    userPhoto : {
+        width : 100,
+        height : 100,
+        borderRadius : 50
+    },
+
+
+    userQRCode : {
+        width : 100,
+        height : 100
+    },
+
+    ModalFlex : 
+    {
+        flex: 1, 
+        backgroundColor : null, 
+        justifyContent :"center", 
+        alignItems : "center"
+    },
+
+    ModalBackGround :
+
+    {
+        width : "100%",
+        height : "100%", 
+        backgroundColor : "white", 
+        // justifyContent :"center",
+        // alignItems: "center"
+    },
+
+
+    centerScrollView : {width : "100%", justifyContent : "center", alignItems :"center"},
+
+    ModalBackGroundInside : {
+        width :300, 
+        justifyContent :"center",
+        
+    },
+
+
+    CloseButton :
+
+    {
+        position : "absolute", 
+        right : 15, 
+        top : 10, 
+        zIndex : 3
+    },
+
+    setCalendarStyle : {
+
+        fontSize : 16, 
+        textAlign :"center", 
+        width : "100%", 
+        height : 40, 
+        justifyContent: "center", 
+        color : "white",
+        lineHeight:40, 
+        backgroundColor:"red", 
+        borderColor : "black", 
+        borderWidth : 1,
+        marginBottom : 10
+
+    },
+
+    CalendarStyle : {
+
+        fontSize : 16, 
+        textAlign :"center", 
+        width : "100%", 
+        height : 40, 
+        justifyContent: "center", 
+        lineHeight:40, 
+        backgroundColor:"black", 
+        color : "white",
+        borderColor : "black", 
+        borderWidth : 1,
+        marginBottom : 10
+
+    },
+}
+
+
+
+const mapStateToProps = (store) => ({
+
+    getGetUpdateUserData : Actions.getUpdateUserData(store)
+
+
+
+})
+
+const mapDispatchToProps = {
+    onResetUserSessions: Actions.resetUserSession,
+    onUserUpdate : Actions.updateUser,
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

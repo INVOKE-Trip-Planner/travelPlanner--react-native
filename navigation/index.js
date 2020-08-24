@@ -45,10 +45,10 @@ class BottomTab extends React.Component{
                 <Tab.Screen name = "Dashboard" component = {Dashboard}   options={{tabBarIcon:({focused})=>
                 ( <Ionicons name= "md-calendar" color={focused ? activeTabIconColor : nonActiveTabIconColor} size = {focused ? 30 : 20}/> )
                 }}/>
-{/* 
+
                 <Tab.Screen name = "Profile" component = {Profile}  options={{tabBarIcon:({focused})=>
                 ( <Ionicons name= "ios-contact" color={focused ? activeTabIconColor : nonActiveTabIconColor} size = {focused ? 30 : 20}/> )
-                }}/> */}
+                }}/>
                
             </Tab.Navigator>
         )

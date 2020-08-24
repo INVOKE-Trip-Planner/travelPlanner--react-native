@@ -20,6 +20,8 @@ function* login({ data }) {
     console.log(response);
     yield put(Actions.loginSuccess(response.data));
     yield put(Actions.activateUserSession(response.data.token));
+    yield put(Actions.updateUserSuccess(response.data.user)); // login success => user get token
+
 
     //update the usersession
 

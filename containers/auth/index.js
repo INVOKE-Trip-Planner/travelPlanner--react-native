@@ -47,8 +47,8 @@ class Auth extends React.Component{
         //     password : this.state.password
         //   }
         const data = {
-          username: 'test0004', //this.state.username,
-          password : 'test0004', //this.state.password,
+          username: 'test0005', //this.state.username,
+          password : 'test0005', //this.state.password,
         }
 
         this.props.onLogin(data);
@@ -85,7 +85,7 @@ class Auth extends React.Component{
       componentDidUpdate(prevProps){
         const { getLoginData} = this.props;
 
-        // console.log(prevProps.getLoginData.isLoading);
+        console.log(getLoginData)
     
         if(prevProps.getLoginData.isLoading && !getLoginData.isLoading){
          

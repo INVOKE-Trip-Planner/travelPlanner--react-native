@@ -99,3 +99,10 @@ export const deleteDes = (data, headers) => {
   return fetchApi('post', 'api/destination/delete', data, headers)
 };
 
+
+
+
+//-----------USER------------------------
+export const updateUser = (data, token) => {
+  return fetchApi('post', 'api/user', data, token);
+}

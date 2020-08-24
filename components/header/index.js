@@ -1,13 +1,33 @@
 import React from "react";
-import {View, Text, StyleSheet, Image, TouchableOpacity, StatusBar} from "react-native";
+import {View, Text, StyleSheet, Image, TouchableOpacity, StatusBar, Alert} from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons';
+
+import Actions from "actions";
+import {connect} from "react-redux"
+
 
 
 
 const IconColor = "#F7230D";
 
 
+
+
+
+
+
 class Header extends React.Component{
+
+
+
+    logoutPressed() {
+        this.props.onResetUserSessions();
+        Alert.alert("Bubye", "Logout Succesfully", [{
+            text: "Okay",
+            onPress :() => this.props.navigation.navigate("Auth")
+        }])
+
+    }
 
     render(){
         return(
@@ -22,9 +42,9 @@ class Header extends React.Component{
                     </TouchableOpacity>
                     
                 </View>
-                <TouchableOpacity>
+                {/* <TouchableOpacity onPress = {() => {this.logoutPressed()}}>
                     <Ionicons name = "md-exit" style = {{ fontSize : 30, color : IconColor}}/>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
                 
                 
             </View>
@@ -60,7 +80,19 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Header;
+
+
+const mapStateToProps = (store) => ({
+
+})
+
+const mapDispatchToProps = {
+    onResetUserSessions: Actions.resetUserSession,
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
+
 
 
 
