@@ -15,7 +15,7 @@ export const PRIMARY_COLOR = {
 
 
 
-export const MAIN_COLOR = "#EC7063" ; 
+export const MAIN_COLOR = "#FF1800" ; 
 
 
 

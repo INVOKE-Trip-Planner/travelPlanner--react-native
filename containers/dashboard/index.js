@@ -55,7 +55,7 @@ class Dashboard extends React.Component{
             selectedEndDateDestination : moment().format("YYYY-MM-DD"),
             showModalUpdate : false,
             tripidforupdate : "",
-            showAddUserModal : true,
+            showAddUserModal : false,
             adduser : "",
 
             hasCameraPermission: null,
@@ -168,18 +168,20 @@ class Dashboard extends React.Component{
                         </TouchableOpacity>
 
 
-                        <FlatList
 
-                            style = {{backgroundColor : null,  height : 40,}}
-                            data = {item.item.users}
-                            renderItem = {(item) => this._renderItemList2(item)}
-                            numColumns = {1}
-                            contentContainerStyle= {{alignItems : "center"}}
-                            horizontal = {true}
+                            <FlatList
+
+                                style = {{backgroundColor : null,  height : 40,}}
+                                data = {item.item.users}
+                                renderItem = {(item) => this._renderItemList2(item)}
+                                numColumns = {1}
+                                contentContainerStyle= {{alignItems : "center"}}
+                                horizontal = {true}
+                            
+                                >
+
+                            </FlatList>
                         
-                            >
-
-                        </FlatList>
                     </View>
                 </View>
                 
@@ -189,21 +191,17 @@ class Dashboard extends React.Component{
 
                     
 
+                    <View style = {{flexDirection : "row", width : 40, justifyContent : "space-around"}}>
 
+                        <TouchableOpacity onPress = {() => {this._updateButtonPressed(item.item.id)}} >
+                            <Ionicons  name= "ios-open" style = {{fontSize : 20, color : MAIN_COLOR}}/>   
+                        </TouchableOpacity>
 
-                    {/* <TouchableOpacity onPress = {() => {this._updateButtonPressed(item.item.id)}} >
-                        <Ionicons  name= "ios-open" style = {{fontSize : 20, color : MAIN_COLOR}}/>   
-                    </TouchableOpacity> */}
+                        <TouchableOpacity onPress = {() => {this._deleteButtonPressed(item.item.id)}}>
+                            <Ionicons  name= "ios-trash" style = {{fontSize : 20, color : MAIN_COLOR}}/>   
+                        </TouchableOpacity>
 
-
-                    
-
-
-    
-
-                    <TouchableOpacity onPress = {() => {this._deleteButtonPressed(item.item.id)}}>
-                        <Ionicons  name= "ios-trash" style = {{fontSize : 20, color : MAIN_COLOR}}/>   
-                    </TouchableOpacity>
+                    </View>
 
 
                     <TouchableOpacity onPress = {() => {this._addDes(item.item.id)}} style = {{borderRadius : 10, backgroundColor : "black", justifyContent : "center", alignItems : "center"}} >
@@ -724,6 +722,42 @@ class Dashboard extends React.Component{
                 />}
 
                 <Text style = {styles.CalendarStyle}>{this.state.selectedEndDate_old}</Text>
+
+
+                  <View style = {styles.inputBox}>
+
+
+                 <Picker
+                    selectedValue={this.state.group_type}
+                    style={{ height: 50, width: "100%", justifyContent : "center"  , borderColor : "black", borderWidth : 2 }}
+                    onValueChange={(itemValue, itemIndex) => this.setState({group_type:itemValue}, () => console.log(this.state.group_type))}
+                  >
+                    <Picker.Item label="Your Gender"  value="SOLO"/>
+                    <Picker.Item label="Wandering solo" value="SOLO" />
+                    <Picker.Item label="Holidaying as a couple" value="COUPLE" />
+                    <Picker.Item label="Vacationing with family" value="FAMILY" />
+                    <Picker.Item label="Traveling with friends" value="FRIENDS" />
+                </Picker>
+                 <Picker
+                    selectedValue={this.state.trip_type}
+                    style={{ height: 50, width: "100%", justifyContent : "center"  , borderColor : "black", borderWidth : 2 }}
+                    onValueChange={(itemValue, itemIndex) => this.setState({trip_type:itemValue}, () => console.log(this.state.trip_type))}
+                  >
+                    <Picker.Item label="Your Trip Type"  value="WORK" />
+                    <Picker.Item label="WORK" value="WORK" />
+                    <Picker.Item label="LEISURE" value="LEISURE" />
+                    
+                </Picker>
+
+
+
+
+
+
+
+                 
+
+                </View>
 
                
 
