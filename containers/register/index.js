@@ -20,7 +20,7 @@ import DropDown from "components/dropdown";
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const ButtonColor = "#F7230D";
+import {MAIN_COLOR} from "common/style"
 
 
 
@@ -181,7 +181,7 @@ class Register extends React.Component{
 
                     <TouchableOpacity style = {{ zIndex : 2, position: "absolute", top : "50%", right : 10, transform:[{translateX : 0}, { translateY : -10} ]}}
                     onPress = {() => this.setState({hidePass: !this.state.hidePass})}>
-                        <Ionicons  name= {this.state.hidePass ? "ios-eye" : "ios-eye-off"} style = {{fontSize : 20, color : "red"}}/>   
+                        <Ionicons  name= {this.state.hidePass ? "ios-eye" : "ios-eye-off"} style = {{fontSize : 20, color : MAIN_COLOR}}/>   
                     </TouchableOpacity>
 
                 </View >
@@ -196,7 +196,7 @@ class Register extends React.Component{
 
                     <TouchableOpacity style = {{ zIndex : 2, position: "absolute", top : "50%", right : 10, transform:[{translateX : 0}, { translateY : -10} ]}}
                     onPress = {() => this.setState({hidePass: !this.state.hidePass})}>
-                        <Ionicons  name= {this.state.hidePass ? "ios-eye" : "ios-eye-off"} style = {{fontSize : 20, color : "red"}}/>   
+                        <Ionicons  name= {this.state.hidePass ? "ios-eye" : "ios-eye-off"} style = {{fontSize : 20, color : MAIN_COLOR}}/>   
                     </TouchableOpacity>
 
                 </View >
@@ -268,7 +268,7 @@ class Register extends React.Component{
 
 
                   <TouchableOpacity onPress = {() => this.props.navigation.navigate("Auth")}>
-                    <Ionicons  name= "md-arrow-back" style = {{fontSize : 20, color : "red"}}/>
+                    <Ionicons  name= "md-arrow-back" style = {{fontSize : 20, color : MAIN_COLOR}}/>
                   </TouchableOpacity>
 
                   
@@ -284,7 +284,7 @@ class Register extends React.Component{
 const styles = {
   mainBox : {
     backgroundColor : "white", 
-    // shadowColor: "red",
+    // shadowColor: MAIN_COLOR,
     // shadowOffset: {
     //           width: 0,
     //           height: 2,
@@ -318,7 +318,7 @@ const styles = {
       justifyContent: "center", 
       color : "white",
       lineHeight:40, 
-      backgroundColor:"red", 
+      backgroundColor:MAIN_COLOR, 
       borderColor : "black", 
       borderWidth : 1,
       marginBottom : 10

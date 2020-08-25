@@ -25,6 +25,10 @@ import QRCode from "react-qr-code";
 import UpdateUserFrom from "./updateUserForm";
 
 
+import {MAIN_COLOR} from "common/style"
+
+
+
 const AVATAR_PREFIX = getFullUrl('storage/avatars/')
 
 class Profile extends React.Component{
@@ -145,12 +149,12 @@ class Profile extends React.Component{
 
                 </View>
 
-                <TouchableOpacity style = {{marginVertical : 10, backgroundColor : "red", width : 200, height : 50, justifyContent : "center", borderRadius : 20 }} onPress = {() => {this.logoutPressed()}}>
+                <TouchableOpacity style = {{marginVertical : 10, backgroundColor : MAIN_COLOR, width : 200, height : 50, justifyContent : "center", borderRadius : 20 }} onPress = {() => {this.logoutPressed()}}>
                     <Text style = {{color : "white", textAlign :"center"}}>LOGOUT</Text>
                 </TouchableOpacity>
 
 
-                <TouchableOpacity style = {{marginVertical : 10, backgroundColor : "red", width : 200, height : 50, justifyContent : "center", borderRadius : 20 }} onPress = {() => {this.setState({showModal:true})}}>
+                <TouchableOpacity style = {{marginVertical : 10, backgroundColor : MAIN_COLOR, width : 200, height : 50, justifyContent : "center", borderRadius : 20 }} onPress = {() => {this.setState({showModal:true})}}>
                     <Text style = {{color : "white", textAlign :"center"}}>UPDATE PROFILE</Text>
                 </TouchableOpacity>
 
@@ -168,7 +172,7 @@ class Profile extends React.Component{
                     <View style = {styles.ModalFlex}>
                         <ScrollView style = {styles.ModalBackGround}>
                             <TouchableOpacity style = {{position : "absolute", right : 0, top : 0, zIndex : 3}} onPress = {() => this.setState({showModal : false})}>
-                                <Text style = {{color : "red"}}>CLOSE</Text>
+                                <Text style = {{color : MAIN_COLOR}}>CLOSE</Text>
                             </TouchableOpacity>
 
                             
@@ -239,7 +243,7 @@ class Profile extends React.Component{
 
                     <TouchableOpacity style = {{ zIndex : 2, position: "absolute", top : "50%", right : 10, transform:[{translateX : 0}, { translateY : -10} ]}}
                     onPress = {() => this.setState({hidePass: !this.state.hidePass})}>
-                        <Ionicons  name= {this.state.hidePass ? "ios-eye" : "ios-eye-off"} style = {{fontSize : 20, color : "red"}}/>   
+                        <Ionicons  name= {this.state.hidePass ? "ios-eye" : "ios-eye-off"} style = {{fontSize : 20, color : MAIN_COLOR}}/>   
                     </TouchableOpacity>
 
                 </View >
@@ -254,7 +258,7 @@ class Profile extends React.Component{
 
                     <TouchableOpacity style = {{ zIndex : 2, position: "absolute", top : "50%", right : 10, transform:[{translateX : 0}, { translateY : -10} ]}}
                     onPress = {() => this.setState({hidePass: !this.state.hidePass})}>
-                        <Ionicons  name= {this.state.hidePass ? "ios-eye" : "ios-eye-off"} style = {{fontSize : 20, color : "red"}}/>   
+                        <Ionicons  name= {this.state.hidePass ? "ios-eye" : "ios-eye-off"} style = {{fontSize : 20, color : MAIN_COLOR}}/>   
                     </TouchableOpacity>
 
                 </View >
@@ -516,7 +520,7 @@ const styles = {
         justifyContent: "center", 
         color : "white",
         lineHeight:40, 
-        backgroundColor:"red", 
+        backgroundColor:MAIN_COLOR, 
         borderColor : "black", 
         borderWidth : 1,
         marginBottom : 10

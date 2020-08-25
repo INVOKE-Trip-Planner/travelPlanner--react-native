@@ -2,8 +2,8 @@ import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet} from "react-native";
 
 
+import {MAIN_COLOR} from "common/style"
 
-const ButtonColor = "#F7230D";
 
 
 class InputButton extends React.Component{
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
         display : "flex",
         justifyContent : "center",
         alignItems:  "center",
-        backgroundColor : ButtonColor
+        backgroundColor : MAIN_COLOR
     },
 
     buttonName : {

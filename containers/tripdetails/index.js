@@ -5,7 +5,8 @@ import Transportation from "components/transportation";
 import Iternaries from "components/iternary";
 
 
-const ButtonColor = "#F7230D";
+
+import {MAIN_COLOR} from "common/style"
 
 
 
@@ -53,7 +54,7 @@ class TripDetails extends React.Component{
                 itinerariesdatafortheid : item.item.itineraries,
                 })}
                 style = {{backgroundColor : null}}>
-                <View style = {[{marginHorizontal : 10, height : 80, width : 200, justifyContent : "center", alignItems : "flex-start", marginVertical : 10, paddingLeft: 10}, {backgroundColor : this.state.selected == item.item.id ? ButtonColor : "white"}]}>
+                <View style = {[{marginHorizontal : 10, height : 80, width : 200, justifyContent : "center", alignItems : "flex-start", marginVertical : 10, paddingLeft: 10}, {backgroundColor : this.state.selected == item.item.id ? MAIN_COLOR : "white"}]}>
                     <Text>Destination : {item.item.location}</Text>
                     <Text>Start Date : {item.item.start_date}</Text>
                     <Text>End Date : {item.item.end_date}</Text>
@@ -74,7 +75,7 @@ class TripDetails extends React.Component{
             <ScrollView>
                 <View style = {{alignItems : "center"}}>
                     <TouchableOpacity onPress = {() => {this.setState({showselectdestination: !this.state.showselectdestination})}}style = {{width : "100%"}}>
-                        <Text style = {{backgroundColor :'red', width : "100%", color : "white", textAlign :"center"}}>Select your Destination</Text>
+                        <Text style = {{backgroundColor :MAIN_COLOR, width : "100%", color : "white", textAlign :"center"}}>Select your Destination</Text>
                     </TouchableOpacity>
 
 
@@ -101,7 +102,7 @@ class TripDetails extends React.Component{
                 </View>
 
                 <TouchableOpacity onPress = {() => this.setState({showfiltertripdestination : !this.state.showfiltertripdestination})}>
-                    <Text style = {{backgroundColor :'red', width : "100%", color : "white", textAlign :"center", marginBottom : 10}}>Filter Trip Detail By  </Text>
+                    <Text style = {{backgroundColor :MAIN_COLOR, width : "100%", color : "white", textAlign :"center", marginBottom : 10}}>Filter Trip Detail By  </Text>
                 </TouchableOpacity>
 
 
