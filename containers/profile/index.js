@@ -117,9 +117,9 @@ class Profile extends React.Component{
                  
                 <QRCode value={
                         `{
-                            "id": ${id},
-                            "name": "${name}",
-                            "avatar": "${avatar}"
+                            "id": ${this.props.getGetUpdateUserData.data.id},
+                            "name": "${this.props.getGetUpdateUserData.data.name}",
+                            "avatar": "${this.props.getGetUpdateUserData.data.avatar}"
                         }`
                     } 
                 />
