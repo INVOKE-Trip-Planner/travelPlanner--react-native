@@ -1,6 +1,4 @@
 import React from "react";
-
-
 import {connect} from "react-redux";
 import Actions from "../../actions";
 
@@ -19,9 +17,10 @@ import InputButton from "components/inputButton";
 import InputForm from "components/inputForm";
 
 
+import {MAIN_COLOR} from "common/style"
 
 
-const ButtonColor = "#F7230D";
+
 
 
 
@@ -341,7 +340,7 @@ class Accomodation extends React.Component{
         <Text>{this.props.destinationID}</Text>
 
             <TouchableOpacity onPress = {() => this.addAccomodationButtonisPressed()} style = {{position : "absolute", bottom : 10, right : 20}}>
-                        <Ionicons  name= "md-add-circle" style = {{ fontSize : 50, color : ButtonColor}}/>
+                        <Ionicons  name= "md-add-circle" style = {{ fontSize : 50, color : MAIN_COLOR}}/>
             </TouchableOpacity>
 
 
@@ -354,7 +353,7 @@ class Accomodation extends React.Component{
                     <View style = {styles.ModalFlex}>
                         <ScrollView style = {styles.ModalBackGround}>
                             <TouchableOpacity style = {{position : "absolute", right : 0, top : 0, zIndex : 3}} onPress = {() => this.setState({showModal : false})}>
-                                <Text style = {{color : "red"}}>CLOSE</Text>
+                                <Text style = {{color : MAIN_COLOR}}>CLOSE</Text>
                             </TouchableOpacity>
 
                             <View style= {styles.centerScrollView}>
@@ -515,7 +514,7 @@ class Accomodation extends React.Component{
                     <View style = {styles.ModalFlex}>
                         <ScrollView style = {styles.ModalBackGround}>
                             <TouchableOpacity style = {{position : "absolute", right : 0, top : 0, zIndex : 3}} onPress = {() => this.setState({showModalUpdate : false})}>
-                                <Text style = {{color : "red"}}>CLOSE</Text>
+                                <Text style = {{color : MAIN_COLOR}}>CLOSE</Text>
                             </TouchableOpacity>
 
                             <View style= {styles.centerScrollView}>
@@ -687,7 +686,7 @@ const styles = StyleSheet.create({
     card : {
     width : 250,
     height : 300,
-    borderColor : ButtonColor,
+    borderColor : MAIN_COLOR,
     borderWidth : 1, 
     marginVertical : 15, 
     borderRadius : 10,
@@ -697,7 +696,7 @@ const styles = StyleSheet.create({
     cardTitle : {
 
     width : "100%",
-    backgroundColor : ButtonColor,
+    backgroundColor : MAIN_COLOR,
     color : "white",
     padding : 10,
     textAlign : "center",
@@ -709,7 +708,7 @@ const styles = StyleSheet.create({
     cardDetails : 
         {
         fontSize : 20, 
-        color : ButtonColor, 
+        color : MAIN_COLOR, 
         marginRight : 10,
          marginTop : 10
         },
@@ -765,7 +764,7 @@ const styles = StyleSheet.create({
         justifyContent: "center", 
         color : "white",
         lineHeight:40, 
-        backgroundColor:"red", 
+        backgroundColor: MAIN_COLOR, 
         borderColor : "black", 
         borderWidth : 1,
         marginBottom : 10

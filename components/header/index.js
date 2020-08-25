@@ -8,7 +8,9 @@ import {connect} from "react-redux"
 
 
 
-const IconColor = "#F7230D";
+
+import {MAIN_COLOR} from "common/style";
+
 
 
 
@@ -37,13 +39,14 @@ class Header extends React.Component{
                     {/* <TouchableOpacity>
                         <Ionicons  name=  "ios-menu" style = {{fontSize : 30, color : "blue"}}/> 
                     </TouchableOpacity> */}
-                    <TouchableOpacity>
-                        <Text style = {{color : IconColor}}>TripBantu</Text>
+                    <TouchableOpacity style = {{flexDirection : "row"}}>
+                       <Text style = {{fontWeight : "normal"}}>Trip</Text> 
+                       <Text style = {{color : MAIN_COLOR, fontWeight : "bold"}}>Bantu </Text>
                     </TouchableOpacity>
                     
                 </View>
                 {/* <TouchableOpacity onPress = {() => {this.logoutPressed()}}>
-                    <Ionicons name = "md-exit" style = {{ fontSize : 30, color : IconColor}}/>
+                    <Ionicons name = "md-exit" style = {{ fontSize : 30, color : MAIN_COLOR}}/>
                 </TouchableOpacity> */}
                 
                 

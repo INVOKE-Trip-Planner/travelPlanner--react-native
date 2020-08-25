@@ -18,8 +18,8 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 
-const ButtonColor = "#F7230D";
 
+import {MAIN_COLOR} from "common/style"
 
 
 class Iternaries extends React.Component{
@@ -107,7 +107,7 @@ class Iternaries extends React.Component{
         <Text>{this.props.destinationID}</Text>
 
             <TouchableOpacity style = {{position : "absolute", bottom : 10, right : 20}} onPress = {()=>this.addIternaryButtonisPressed()}>
-                        <Ionicons  name= "md-add-circle" style = {{ fontSize : 50, color : ButtonColor}}/>
+                        <Ionicons  name= "md-add-circle" style = {{ fontSize : 50, color : MAIN_COLOR}}/>
             </TouchableOpacity>
 
 
@@ -184,7 +184,7 @@ const styles = {
    card : {
     width : 250,
     height : 300,
-    borderColor : ButtonColor,
+    borderColor : MAIN_COLOR,
     borderWidth : 1, 
     marginVertical : 15, 
     borderRadius : 10,
@@ -195,7 +195,7 @@ const styles = {
     cardTitle : {
 
         width : "100%",
-        backgroundColor : ButtonColor,
+        backgroundColor : MAIN_COLOR,
         color : "white",
         padding : 10,
         textAlign : "center",
@@ -207,7 +207,7 @@ const styles = {
         cardDetails : 
         {
         fontSize : 20, 
-        color : ButtonColor, 
+        color : MAIN_COLOR, 
         marginRight : 10,
          marginTop : 10
         },

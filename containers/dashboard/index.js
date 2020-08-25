@@ -20,7 +20,10 @@ import {connect} from "react-redux";
 import Actions from "actions"
 
 
-const ButtonColor = "#F7230D";
+import {MAIN_COLOR} from "common/style"
+
+
+
 
 class Dashboard extends React.Component{
 
@@ -140,7 +143,7 @@ class Dashboard extends React.Component{
         return(
 
         
-            <View style = {{width : 300, height : 300, backgroundColor : null,  borderColor : ButtonColor, borderWidth : 1, borderRadius : 20, alignItems : "center", marginVertical : 10}} >
+            <View style = {{width : 300, height : 300, backgroundColor : null,  borderColor : MAIN_COLOR, borderWidth : 1, borderRadius : 20, alignItems : "center", marginVertical : 10}} >
                 
                 <View style = {{backgroundColor : null, flex : 1}}>
 
@@ -160,8 +163,8 @@ class Dashboard extends React.Component{
 
 
                         <TouchableOpacity onPress = {() => this.addUserButtonPressed()}>
-                            <Text style = {{backgroundColor : 'red', fontSize : 10, padding : 5, borderRadius :  5, color : "white", margin : 2.5, width : 70, textAlign : "center"}}>Add User </Text>
-                            {/* <Ionicons  name= "md-person-add" style = {{fontSize : 20, color : "red", margin : 2.5, position : "absolute", bottom : 20, right : 0}}/> */}
+                            <Text style = {{backgroundColor : MAIN_COLOR, fontSize : 10, padding : 5, borderRadius :  5, color : "white", margin : 2.5, width : 70, textAlign : "center"}}>Add User </Text>
+                            {/* <Ionicons  name= "md-person-add" style = {{fontSize : 20, color : MAIN_COLOR, margin : 2.5, position : "absolute", bottom : 20, right : 0}}/> */}
                         </TouchableOpacity>
 
 
@@ -189,7 +192,7 @@ class Dashboard extends React.Component{
 
 
                     {/* <TouchableOpacity onPress = {() => {this._updateButtonPressed(item.item.id)}} >
-                        <Ionicons  name= "ios-open" style = {{fontSize : 20, color : ButtonColor}}/>   
+                        <Ionicons  name= "ios-open" style = {{fontSize : 20, color : MAIN_COLOR}}/>   
                     </TouchableOpacity> */}
 
 
@@ -199,7 +202,7 @@ class Dashboard extends React.Component{
     
 
                     <TouchableOpacity onPress = {() => {this._deleteButtonPressed(item.item.id)}}>
-                        <Ionicons  name= "ios-trash" style = {{fontSize : 20, color : ButtonColor}}/>   
+                        <Ionicons  name= "ios-trash" style = {{fontSize : 20, color : MAIN_COLOR}}/>   
                     </TouchableOpacity>
 
 
@@ -212,7 +215,7 @@ class Dashboard extends React.Component{
 
                     {item.item.destinations.length != 0 && 
 
-                    <TouchableOpacity onPress = {() => {this.props.navigation.navigate("TripDetails",  { detailsData:item})}} style = {{borderRadius : 10, backgroundColor : "red", justifyContent : "center", alignItems : "center"}}>
+                    <TouchableOpacity onPress = {() => {this.props.navigation.navigate("TripDetails",  { detailsData:item})}} style = {{borderRadius : 10, backgroundColor : MAIN_COLOR, justifyContent : "center", alignItems : "center"}}>
                         <Text style = {{fontSize :15, color : "white", padding : 5}}>View Details</Text>   
                     </TouchableOpacity>
 
@@ -431,7 +434,7 @@ class Dashboard extends React.Component{
 
 
                 <TouchableOpacity onPress = {() => this.setState({showModal : true})}style = {{position : "absolute", bottom : 20, right : 30}}>
-                        <Ionicons  name= "md-add-circle" style = {{ fontSize : 50, color : ButtonColor}}/>
+                        <Ionicons  name= "md-add-circle" style = {{ fontSize : 50, color : MAIN_COLOR}}/>
                 </TouchableOpacity>
 
 
@@ -445,7 +448,7 @@ class Dashboard extends React.Component{
                     <View style = {styles.ModalFlex}>
                         <View style = {styles.ModalBackGround}>
                             <TouchableOpacity style = {styles.CloseButton} onPress = {() => this.setState({showModal : false})}>
-                                <Text style = {{color : "red"}}>CLOSE</Text>
+                                <Text style = {{color : MAIN_COLOR}}>CLOSE</Text>
                             </TouchableOpacity>
 
                             <View style = {styles.ModalBackGroundInside}>
@@ -548,7 +551,7 @@ class Dashboard extends React.Component{
                     <View style = {styles.ModalFlex}>
                         <View style = {styles.ModalBackGround}>
                             <TouchableOpacity style = {styles.CloseButton} onPress = {() => this.setState({showModal2 : false})}>
-                                <Text style = {{color : "red"}}>CLOSE</Text>
+                                <Text style = {{color : MAIN_COLOR}}>CLOSE</Text>
                             </TouchableOpacity>
 
 
@@ -643,7 +646,7 @@ class Dashboard extends React.Component{
                     <View style = {styles.ModalFlex}>
                         <View style = {styles.ModalBackGround}>
                             <TouchableOpacity style = {styles.CloseButton} onPress = {() => this.setState({showModalUpdate : false})}>
-                                <Text style = {{color : "red"}}>CLOSE</Text>
+                                <Text style = {{color : MAIN_COLOR}}>CLOSE</Text>
                             </TouchableOpacity>
 
                             <View style = {styles.ModalBackGroundInside}>
@@ -752,7 +755,7 @@ class Dashboard extends React.Component{
                     <View style = {styles.ModalFlex}>
                         <View style = {styles.ModalBackGround}>
                             <TouchableOpacity style = {styles.CloseButton} onPress = {() => this.setState({showAddUserModal : false})}>
-                                <Text style = {{color : "red"}}>CLOSE</Text>
+                                <Text style = {{color : MAIN_COLOR}}>CLOSE</Text>
                             </TouchableOpacity>
 
                             <View style = {styles.ModalBackGroundInside}>
@@ -828,7 +831,7 @@ const styles = {
         justifyContent: "center", 
         color : "white",
         lineHeight:40, 
-        backgroundColor:"red", 
+        backgroundColor:MAIN_COLOR, 
         borderColor : "black", 
         borderWidth : 1,
         marginBottom : 10

@@ -7,3 +7,16 @@ export const CONTAINER = {
 
 
 
+
+export const PRIMARY_COLOR = {
+    backgroundImage: "linear-gradient(to bottom right, #CB4335, #E74C3C)",
+    border: "none",
+}
+
+
+
+export const MAIN_COLOR = "#EC7063" ; 
+
+
+
+

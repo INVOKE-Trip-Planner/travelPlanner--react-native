@@ -16,14 +16,12 @@ import { connect} from "react-redux";
 
 
 
-import CONTAINER from "common/style";
 import { StatusBar } from "expo-status-bar";
 
 
 
 
-const ButtonColor = "#F7230D";
-
+import {MAIN_COLOR} from "common/style";
 
 
 class Auth extends React.Component{
@@ -131,7 +129,7 @@ class Auth extends React.Component{
         <View style = {{backgroundColor:"white", flex:1, paddingTop: 20, alignItems : "center", justifyContent : "center"}}>
 
 
-            <StatusBar style = {{backgroundColor : "red"}}/>
+            <StatusBar style = {{backgroundColor : MAIN_COLOR}}/>
 
             {/* <Banner/> */}
 
@@ -165,7 +163,7 @@ class Auth extends React.Component{
 
                     <TouchableOpacity style = {{ zIndex : 2, position: "absolute", top : "50%", right : 10, transform:[{translateX : 0}, { translateY : -10} ]}}
                     onPress = {() => this.setState({hidePass: !this.state.hidePass})}>
-                        <Ionicons  name= {this.state.hidePass ? "ios-eye" : "ios-eye-off"} style = {{fontSize : 20, color : "red"}}/>   
+                        <Ionicons  name= {this.state.hidePass ? "ios-eye" : "ios-eye-off"} style = {{fontSize : 20, color : MAIN_COLOR}}/>   
                     </TouchableOpacity>
 
                 </View >
@@ -177,7 +175,7 @@ class Auth extends React.Component{
 
                     <Text style = {{marginRight : 5}}>New User ?</Text>
                     <TouchableOpacity onPress = { () => this.props.navigation.navigate("Register")}>
-                      <Text style = {{color : ButtonColor, fontWeight : "bold" }}>SIGN UP NOW  </Text>
+                      <Text style = {{color : MAIN_COLOR, fontWeight : "bold" }}>SIGN UP NOW  </Text>
                     </TouchableOpacity>
 
                   </View>

@@ -22,7 +22,9 @@ const Tab = createBottomTabNavigator();
 
 
 const activeTabIconColor = "#F7230D";
-const nonActiveTabIconColor = "#F2B9B3";
+const nonActiveTabIconColor = "black";
+
+import {MAIN_COLOR} from "common/style"
 
 
 
@@ -35,19 +37,19 @@ class BottomTab extends React.Component{
     render(){
         return(
             <Tab.Navigator  tabBarOptions={{
-                activeTintColor: activeTabIconColor,
+                activeTintColor: MAIN_COLOR,
                 inactiveTintColor: nonActiveTabIconColor,
               }}>
                  {/* <Tab.Screen name = "Home" component = {Home}   options={{tabBarIcon:({focused})=>
                 ( <Ionicons name= "ios-home" color={focused ?  activeTabIconColor: nonActiveTabIconColor} size = {focused ? 30 : 20}/> )
                 }}/> */}
                 
-                {/* <Tab.Screen name = "Dashboard" component = {Dashboard}   options={{tabBarIcon:({focused})=>
-                ( <Ionicons name= "md-calendar" color={focused ? activeTabIconColor : nonActiveTabIconColor} size = {focused ? 30 : 20}/> )
-                }}/> */}
+                <Tab.Screen name = "Dashboard" component = {Dashboard}   options={{tabBarIcon:({focused})=>
+                ( <Ionicons name= "md-calendar" color={focused ? MAIN_COLOR : nonActiveTabIconColor} size = {focused ? 30 : 20}/> )
+                }}/>
 
                 <Tab.Screen name = "Profile" component = {Profile}  options={{tabBarIcon:({focused})=>
-                ( <Ionicons name= "ios-contact" color={focused ? activeTabIconColor : nonActiveTabIconColor} size = {focused ? 30 : 20}/> )
+                ( <Ionicons name= "ios-contact" color={focused ? MAIN_COLOR : nonActiveTabIconColor} size = {focused ? 30 : 20}/> )
                 }}/>
                
             </Tab.Navigator>
@@ -72,7 +74,7 @@ class Navigator extends React.Component{
                     }}/> */}
                   
 
-                    {/* <Stack.Screen name = "Auth" component = {Auth} options = {{
+                    <Stack.Screen name = "Auth" component = {Auth} options = {{
                         headerShown: false, 
                      
                         
@@ -83,7 +85,7 @@ class Navigator extends React.Component{
                         headerShown: false, 
                      
                         
-                    }}/> */}
+                    }}/>
                     <Stack.Screen name = "BottomTab" component = {BottomTab} options = {{
                         headerShown: false, 
                         headerTintColor: "blue",
