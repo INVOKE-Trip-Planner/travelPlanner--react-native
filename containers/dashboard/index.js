@@ -1,10 +1,14 @@
 import React from "react";
-import {View, Text, FlatList, TouchableOpacity, Modal, Picker, Alert, StatusBar, Image} from "react-native";
+import {View, Text, FlatList, TouchableOpacity, Modal, Picker, Alert, StatusBar, Image, StyleSheet} from "react-native";
 import Header from "components/header";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from "moment";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
+import { BarCodeScanner } from 'expo-barcode-scanner';
+import * as Permissions from 'expo-permissions';
+
+
 
 
 import InputButton from "components/inputButton";
@@ -17,37 +21,6 @@ import Actions from "actions"
 
 
 const ButtonColor = "#F7230D";
-
-
-
-
-const data_test = [
-    {
-        user_id : 1,
-        trip_id : 2
-    },
-    {
-        user_id : 2,
-        trip_id : 2
-    },
-    {
-        user_id : 3,
-        trip_id : 2
-    },
-    {
-        user_id : 5,
-        trip_id : 2
-    },
-    {
-        user_id : 1,
-        trip_id : 2
-    },
-]
-
-
-
-
-
 
 class Dashboard extends React.Component{
 
@@ -78,7 +51,12 @@ class Dashboard extends React.Component{
             selectedStartDateDestination : moment().format("YYYY-MM-DD"),
             selectedEndDateDestination : moment().format("YYYY-MM-DD"),
             showModalUpdate : false,
-            tripidforupdate : ""
+            tripidforupdate : "",
+            showAddUserModal : true,
+            adduser : "",
+
+            hasCameraPermission: null,
+            scanned: false,
 
             //
 
@@ -91,7 +69,15 @@ class Dashboard extends React.Component{
 
     componentDidMount() {
         this.props.onGetAll();
+        
     }
+
+
+    // async componentDidMount(){
+    
+    //     this.getPermissionsAsync()
+
+    // }
 
     componentDidUpdate(prevProps){
         const { getGetAllData} = this.props ;
@@ -106,12 +92,40 @@ class Dashboard extends React.Component{
       
     }
 
+
+    // handleBarCodeScanned = ({ type, data }) => {
+    //     this.setState({ scanned: true });
+    //     alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+    //   };
+
+
+
+    // getPermissionsAsync = async () => {
+    //     const { status } = await Permissions.askAsync(Permissions.CAMERA);
+    //     this.setState({ hasCameraPermission: status === 'granted' });
+    //   }
+
     _renderItemList2(item){
+
+        // console.log("render item 2  here " , item.index)
 
         return(
 
-            <View style = {{flexDirection : "row", backgroundColor  : null}}>
-                        <Ionicons  name= "md-person" style = {{fontSize : 20, color : "black"}}/>   
+
+            <View>
+                
+
+                
+
+                <View style = {{flexDirection : "row", backgroundColor  : null, alignItems : "center", justifyContent : "center"}}>
+                    <Text style = {{alignItems :"center", backgroundColor :null}}>{item.item.id}</Text>
+                </View> 
+
+                <View style = {{flexDirection : "row", backgroundColor  : null}}>
+                    {/* <Text>{item.item.user_id}</Text> */}
+                    <Ionicons  name= "md-person" style = {{fontSize : 20, color : "black", margin : 2.5}}/>   
+                </View>
+
             </View>
         )
     }
@@ -119,7 +133,7 @@ class Dashboard extends React.Component{
 
     _renderItemList(item){
 
-        // console.log("render item is here " , item.item.destinations.length)
+        // console.log("render item is here " , item.item.users)
 
 
 
@@ -128,9 +142,9 @@ class Dashboard extends React.Component{
         
             <View style = {{width : 300, height : 300, backgroundColor : null,  borderColor : ButtonColor, borderWidth : 1, borderRadius : 20, alignItems : "center", marginVertical : 10}} >
                 
-                <View >
+                <View style = {{backgroundColor : null, flex : 1}}>
 
-                    <Image style = {{borderTopLeftRadius : 20, borderTopRightRadius: 20, height : 150}}source ={require("assets/bannerplaceholder.jpg")}/>
+                    <Image style = {{borderTopLeftRadius : 20, borderTopRightRadius: 20, height : 120}}source ={require("assets/bannerplaceholder.jpg")}/>
 
                     <Text>Trip ID : {item.item.id}</Text>
                     <Text>Trip Name : {item.item.trip_name}</Text>
@@ -142,18 +156,28 @@ class Dashboard extends React.Component{
                     <Text>End</Text> */}
 
 
-                     <FlatList
+                    <View style = {{flexDirection : "row", justifyContent : "space-between", alignItems : "center", width : "100%", backgroundColor :null}}>
 
-                        style = {{backgroundColor : null}}
-                        data = {data_test}
-                        renderItem = {(item) => this._renderItemList2(item)}
-                        numColumns = {1}
-                        contentContainerStyle= {{alignItems : "center"}}
-                        horizontal = {true}
-                    
-                        >
 
-                    </FlatList>
+                        <TouchableOpacity onPress = {() => this.addUserButtonPressed()}>
+                            <Text style = {{backgroundColor : 'red', fontSize : 10, padding : 5, borderRadius :  5, color : "white", margin : 2.5, width : 70, textAlign : "center"}}>Add User </Text>
+                            {/* <Ionicons  name= "md-person-add" style = {{fontSize : 20, color : "red", margin : 2.5, position : "absolute", bottom : 20, right : 0}}/> */}
+                        </TouchableOpacity>
+
+
+                        <FlatList
+
+                            style = {{backgroundColor : null,  height : 40,}}
+                            data = {item.item.users}
+                            renderItem = {(item) => this._renderItemList2(item)}
+                            numColumns = {1}
+                            contentContainerStyle= {{alignItems : "center"}}
+                            horizontal = {true}
+                        
+                            >
+
+                        </FlatList>
+                    </View>
                 </View>
                 
                 
@@ -361,7 +385,31 @@ class Dashboard extends React.Component{
     }
 
 
+    addUserButtonPressed(){
+        this.setState({showAddUserModal: true})
+    }
+
+
+
+    _addUserModalButtonPressed(){
+        const data = {
+            adduser : this.state.adduser
+        }
+
+        console.log(data.adduser)
+
+        this.setState({showAddUserModal:false})
+    }
+
+
     render(){
+
+        // if (this.state.hasCameraPermission === null) {
+        //     return <Text>Requesting for camera permission</Text>;
+        //   }
+        // if (this.state.hasCameraPermission === false) {
+        //     return <Text>No access to camera</Text>;
+        //   }
 
 
         return(
@@ -584,6 +632,8 @@ class Dashboard extends React.Component{
                 }
 
 
+                {/* Modal for updating  */}
+
                 {this.state.showModalUpdate && 
                 <Modal
                     animationType="fade"
@@ -677,6 +727,44 @@ class Dashboard extends React.Component{
 
 
                 <InputButton buttonName = "Update Trip  " navigate = {() => this._updateModalButtonPressed()} />
+
+
+
+
+
+                        </View>
+                        </View>
+                    </View>
+
+                </Modal>
+                }
+
+
+
+                  {/* Modal for adding user  */}
+
+                  {this.state.showAddUserModal && 
+                <Modal
+                    animationType="fade"
+                    transparent={true}
+                >
+
+                    <View style = {styles.ModalFlex}>
+                        <View style = {styles.ModalBackGround}>
+                            <TouchableOpacity style = {styles.CloseButton} onPress = {() => this.setState({showAddUserModal : false})}>
+                                <Text style = {{color : "red"}}>CLOSE</Text>
+                            </TouchableOpacity>
+
+                            <View style = {styles.ModalBackGroundInside}>
+
+               
+
+                
+               
+
+
+
+                <InputButton buttonName = "Add User  " navigate = {() => this._addUserModalButtonPressed()} />
 
 
 

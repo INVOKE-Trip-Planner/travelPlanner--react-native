@@ -1,5 +1,9 @@
 import React from "react";
-import {ScrollView, View, Text, TouchableOpacity, StyleSheet, Alert, Image, FlatList, Modal } from "react-native";
+import {ScrollView, View, Text, TouchableOpacity, StyleSheet, Alert, Image, FlatList, Modal , Button} from "react-native";
+
+import ImagePicker from 'react-native-image-picker';
+
+
 
 import Header from "components/header";
 
@@ -28,16 +32,17 @@ class Profile extends React.Component{
             this.state = {
 
                 showModal : false,
-                name : "test", 
-                username : "",
-                email : "",
+                name : props.getGetUpdateUserData.data.name, 
+                username : props.getGetUpdateUserData.data.username,
+                email : props.getGetUpdateUserData.data.email,
                 password : "",
                 password_confirmation : "",
-                phone : "",
-                gender : "MALE",
-                birth_date_old : moment().format("DD-MM-YYYY"),
-                birth_date : moment().format("YYYY-MM-DD"),   
+                phone : props.getGetUpdateUserData.data.phone,
+                gender : props.getGetUpdateUserData.data.gender,
+                birth_date_old : props.getGetUpdateUserData.data.birth_date,
+                birth_date :  props.getGetUpdateUserData.data.birth_date,   
                 date : new Date(),
+                image : null,
 
                    
                   }
@@ -75,6 +80,9 @@ class Profile extends React.Component{
             }])
     
         }
+
+
+        
     render(){
         return(
             <View style = {{flex : 1, backgroundColor:  "lightblue", alignItems : "center"}}>
@@ -86,18 +94,23 @@ class Profile extends React.Component{
                 <Image style = {styles.userQRCode}source={require('assets/userqrcode.png')}
                 />
 
-                 <Image style = {styles.userPhoto} source={require('assets/placeholder.jpg')}
-                />
+                 {/* <Image style = {styles.userPhoto} source={require('assets/placeholder.jpg')}/> */}
+
+                 <Button title="Pick an image from camera roll" onPress={this._pickImage} />
+                {this.state.image && <Image source={{ uri: this.state.image }} style={{ width: 200, height: 200 }} />}
+
+                 
 
                 <View>
 
                     <Text>Name { this.state.name}</Text>
-                    <Text>Email</Text>
-                    <Text>Password</Text>
-                    <Text>Password Confirmation</Text>
-                    <Text>Phone Number</Text>
-                    {/* <Text>Gender</Text> */}
-                    <Text>Birthday</Text>
+                    <Text>Email {this.state.email}</Text>
+                    <Text>Password : HIDDEN</Text>
+                    <Text>Password Confirmation : HIDDEN</Text>
+                    <Text>Phone {this.state.phone}</Text>
+                    <Text>Gender {this.state.gender}</Text>
+                    <Text>Birthday {this.state.birth_date}</Text>
+                    
 
                 </View>
 
@@ -288,6 +301,117 @@ class Profile extends React.Component{
         )
     }
 }
+
+
+
+// const MyPhotoInput = ({ label, containerStyle, ...props }) => {
+//     const [{value, onChange, ...field}, meta] = useField(props);
+  
+//     const BANNER_PREFIX = 'http://localhost:8000/storage/avatars/';
+//     const [photo, setPhoto] = React.useState(meta.initialValue ? BANNER_PREFIX + meta.initialValue : null);
+//     const [photoName, setPhotoName] = React.useState('');
+  
+//     console.log(photo);
+  
+//     const placeholder = 'http://localhost:8000/storage/avatars/placeholder.png';
+  
+//     const loadPhoto = (e) => {
+//         // let ImageHolder = document.getElementById('image-holder');
+//         // ImageHolder.src = URL.createObjectURL(e.target.files[0]);
+//         // ImageHolder.onload = () => {
+//         //     URL.revokeObjectURL(ImageHolder.src)
+//         // }
+//         // this.setState({ avatar: e.target.files[0] })
+//         setPhoto(URL.createObjectURL(e.target.files[0]));
+//         props.setFieldValue(props.name, e.currentTarget.files[0]);
+//         setPhotoName(e.target.value)
+//     }
+  
+//     return (
+//       <>
+//           {/* {photo &&  */}
+//           <View 
+//             //   className="profile-header-container"
+//           >
+//               <View 
+//                 //   className="profile-header-img rounded-circle" 
+//                   style={{ 
+//                       width: 200, 
+//                       height: 200, 
+//                       overflow: 'hidden', 
+//                       position: 'relative', 
+//                       margin: 'auto', 
+//                   }} >
+//                   <Image 
+//                       id='image-holder' 
+//                       photo={ photo || placeholder } 
+//                       style={{ 
+//                           width: 200, 
+//                           height: 200, 
+//                           objectFit: 'cover', 
+//                           objectPosition: 'center',
+//                       }} 
+//                       alt='customize your banner' 
+//                   />
+//                   {/* <View type='submit' onclick={ this.showFileUpload } id='uploadBtn'
+//                       style={{ width: '100%', zIndex: 2, background: 'black', color: 'white', position: 'absolute', bottom: 0, textAlign: 'center', padding: '0.5em', fontWeight: 'bold', }} >Upload</View> */}
+//               </View>
+//           </View> 
+//         {/* } */}
+//         <View 
+//         //   className={ `form-group` }
+//           style={ styles.inputContainer }
+//           // style={{
+//           //     display: "flex", 
+//           //     flexDirection: "column",
+//           //     ...containerStyle,
+//           // }}
+//         >
+//           <label 
+//               htmlFor={ props.id || props.name } 
+//               style={{ 
+//                   textTransform: 'capitalize', 
+//               }}
+//           > 
+//               { label || props.name }: 
+//           </label>
+  
+//           <View style={ styles.inputStyle }>
+//             <input 
+//                 // className="text-input" 
+//                 type="file"
+//                 // placeholder={ placeholder || `Enter ${ label || props.name } here.` }
+//                 onChange={ loadPhoto }
+//                 {...field} 
+//                 {...props} 
+//                 style={{
+//                   outline: "none",
+//                   width: "100%",
+//                   height: 50,
+//                   borderRadius: 5,
+//                   padding: 10,
+//                 }}
+//             />
+//             { meta.touched && meta.error ? 
+//             (
+//                 <View 
+//                 //   className="error" 
+//                   style={styles.errorContainer}
+//                     // style={{
+//                     //     color: 'red',
+//                     // }}
+//                 >
+//                     { meta.error } 
+//                 </View>
+//             ) : 
+//                 null 
+//             }
+//           </View>
+//         </View>
+//       </>
+//     );
+//   };
+  
 
 
 

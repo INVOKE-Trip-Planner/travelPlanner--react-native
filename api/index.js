@@ -105,4 +105,11 @@ export const deleteDes = (data, headers) => {
 //-----------USER------------------------
 export const updateUser = (data, token) => {
   return fetchApi('post', 'api/user', data, token);
+  
+}
+
+
+export const searchUser = (query) => {
+  return fetchApi('get', `api/user/search/${query}`, null, 
+  { Authorization: `Bearer ${store.getState().PROFILE.userSession.data}` });
 }
