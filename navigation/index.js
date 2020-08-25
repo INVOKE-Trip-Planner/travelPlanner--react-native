@@ -16,6 +16,7 @@ import Home from "containers/home";
 import Register from "containers/register";
 import AddTrip from "containers/addtrip";
 import TripDetails from "containers/tripdetails";
+import QRScanner from "../components/QRScanner";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -84,6 +85,13 @@ class Navigator extends React.Component{
                      
                         
                     }}/>
+
+                    <Stack.Screen name = "QRScanner" component = {QRScanner} options = {{
+                        headerShown: false, 
+                     
+                        
+                    }}/>
+
                     <Stack.Screen name = "BottomTab" component = {BottomTab} options = {{
                         headerShown: false, 
                         headerTintColor: "blue",

@@ -111,7 +111,14 @@ class Profile extends React.Component{
 
                  {/* <Image style = {styles.userPhoto} source={require('assets/placeholder.jpg')}/> */}
                  
-                 <QRCode value="" />
+                <QRCode value={
+                        `{
+                            "id": ${id},
+                            "name": "${name}",
+                            "avatar": "${avatar}"
+                        }`
+                    } 
+                />
 
                  <CustomImagePicker 
                     label="avatar"

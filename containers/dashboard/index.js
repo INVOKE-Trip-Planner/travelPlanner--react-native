@@ -5,7 +5,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import moment from "moment";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
-import { BarCodeScanner } from 'expo-barcode-scanner';
+import QRScanner from 'components/QRScanner';
 import * as Permissions from 'expo-permissions';
 
 
@@ -386,7 +386,8 @@ class Dashboard extends React.Component{
 
 
     addUserButtonPressed(){
-        this.setState({showAddUserModal: true})
+        // this.setState({showAddUserModal: true})
+        this.props.navigation.navigate("QRScanner")
     }
 
 
@@ -763,8 +764,8 @@ class Dashboard extends React.Component{
                
 
 
-
-                <InputButton buttonName = "Add User  " navigate = {() => this._addUserModalButtonPressed()} />
+                            <QRScanner />
+                            <InputButton buttonName = "Add User  " navigate = {() => this._addUserModalButtonPressed()} />
 
 
 
