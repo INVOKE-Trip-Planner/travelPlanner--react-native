@@ -20,6 +20,11 @@ import {MAIN_COLOR} from "common/style";
 
 class Header extends React.Component{
 
+    constructor(props){
+        super(props)
+
+    }
+
 
 
     logoutPressed() {
@@ -45,9 +50,7 @@ class Header extends React.Component{
                     </TouchableOpacity>
                     
                 </View>
-                {/* <TouchableOpacity onPress = {() => {this.logoutPressed()}}>
-                    <Ionicons name = "md-exit" style = {{ fontSize : 30, color : MAIN_COLOR}}/>
-                </TouchableOpacity> */}
+               
                 
                 
             </View>

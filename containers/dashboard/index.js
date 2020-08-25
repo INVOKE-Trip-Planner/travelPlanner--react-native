@@ -136,7 +136,7 @@ class Dashboard extends React.Component{
 
     _renderItemList(item){
 
-        // console.log("render item is here " , item.item.users)
+        console.log("render item is here " , item.item.trip_banner)
 
 
 
@@ -171,7 +171,7 @@ class Dashboard extends React.Component{
 
                             <FlatList
 
-                                style = {{backgroundColor : null,  height : 40,}}
+                                style = {{backgroundColor : null,  height : 40, backgroundColor : "red",}}
                                 data = {item.item.users}
                                 renderItem = {(item) => this._renderItemList2(item)}
                                 numColumns = {1}
