@@ -32,22 +32,18 @@ class Profile extends React.Component{
             this.state = {
 
                 showModal : false,
-                name : props.getGetUpdateUserData.data.name, 
-                username : props.getGetUpdateUserData.data.username,
-                email : props.getGetUpdateUserData.data.email,
+                name : props.getGetUpdateUserData.data ? props.getGetUpdateUserData.data.name : '', 
+                username : props.getGetUpdateUserData.data ? props.getGetUpdateUserData.data.username: '',
+                email : props.getGetUpdateUserData.data ? props.getGetUpdateUserData.data.email : '',
                 password : "",
                 password_confirmation : "",
-                phone : props.getGetUpdateUserData.data.phone,
-                gender : props.getGetUpdateUserData.data.gender,
-                birth_date_old : props.getGetUpdateUserData.data.birth_date,
-                birth_date :  props.getGetUpdateUserData.data.birth_date,   
+                phone : props.getGetUpdateUserData.data ? props.getGetUpdateUserData.data.phone : '',
+                gender : props.getGetUpdateUserData.data ? props.getGetUpdateUserData.data.gender : '',
+                birth_date_old : props.getGetUpdateUserData.data ?  props.getGetUpdateUserData.data.birth_date : '',
+                birth_date :  props.getGetUpdateUserData.data ? props.getGetUpdateUserData.data.birth_date : '',   
                 date : new Date(),
-                image : null,
-
-                   
-                  }
-
-
+                image : null,           
+            }
         }
 
 
