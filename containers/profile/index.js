@@ -19,11 +19,13 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import moment from "moment";
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { CustomImagePicker } from "../../components/inputs";
+import { getFullUrl } from "api/helper.js"
+import QRCode from "react-qr-code";
+import UpdateUserFrom from "./updateUserForm";
 
 
-
-
-
+const AVATAR_PREFIX = getFullUrl('storage/avatars/')
 
 class Profile extends React.Component{
         constructor(props){
@@ -41,18 +43,30 @@ class Profile extends React.Component{
                 gender : props.getGetUpdateUserData.data ? props.getGetUpdateUserData.data.gender : '',
                 birth_date_old : props.getGetUpdateUserData.data ?  props.getGetUpdateUserData.data.birth_date : '',
                 birth_date :  props.getGetUpdateUserData.data ? props.getGetUpdateUserData.data.birth_date : '',   
+                avatar :  props.getGetUpdateUserData.data ? props.getGetUpdateUserData.data.avatar : '',   
                 date : new Date(),
                 image : null,           
             }
         }
 
-
+        postProcessValue(values, initialValue) {
+            // console.log('postpross', values['username'], this.props.getUpdateUserData.data['username'])
+            
+            const fields = ['username', 'email', 'phone', 'avatar']
+            
+            fields.forEach(field => {
+                if (values[field] == initialValue[field]) {
+                    delete values[field];
+                }
+            })
         
+            return values;
+        }
       
 
         modalUpdatebuttonPressed(){
 
-            const data = {
+            let data = {
                 name : this.state.name,
                 username : this.state.username,
                 email : this.state.email,
@@ -60,10 +74,13 @@ class Profile extends React.Component{
                 password_confirmation : this.state.password_confirmation,
                 phone : this.state.phone,
                 gender : "MALE",
-                birth_date : moment().format("YYYY-MM-DD"),   
+                // birth_date : moment().format("YYYY-MM-DD"),   
+                avatar: this.state.avatar,
             }
 
-            console.log(data)
+            data = this.postProcessValue(data, this.props.getGetUpdateUserData.data)
+            // console.log(data)
+            alert(JSON.stringify(data))
             this.props.onUserUpdate(data)
 
         }
@@ -77,9 +94,11 @@ class Profile extends React.Component{
     
         }
 
-
+        handleChangePhoto = (value) => {
+            this.setState({avatar: value})
+        }
         
-    render(){
+    render() {
         return(
             <View style = {{flex : 1, backgroundColor:  "lightblue", alignItems : "center"}}>
                 <Header/>
@@ -87,12 +106,21 @@ class Profile extends React.Component{
 
 
                
-                <Image style = {styles.userQRCode}source={require('assets/userqrcode.png')}
-                />
+                {/* <Image style = {styles.userQRCode}source={require('assets/userqrcode.png')}
+                /> */}
 
                  {/* <Image style = {styles.userPhoto} source={require('assets/placeholder.jpg')}/> */}
+                 
+                 <QRCode value="" />
 
-                 <Button title="Pick an image from camera roll" onPress={this._pickImage} />
+                 <CustomImagePicker 
+                    label="avatar"
+                    value={ `${AVATAR_PREFIX}${this.state.avatar}` }
+                    hideLabel={true}
+                    readonly
+                 />
+
+                 {/* <Button title="Pick an image from camera roll" onPress={this._pickImage} /> */}
                 {this.state.image && <Image source={{ uri: this.state.image }} style={{ width: 200, height: 200 }} />}
 
                  
@@ -128,6 +156,8 @@ class Profile extends React.Component{
                     transparent={true}
                 >
 
+                    {/* <UpdateUserFrom /> */}
+
                     <View style = {styles.ModalFlex}>
                         <ScrollView style = {styles.ModalBackGround}>
                             <TouchableOpacity style = {{position : "absolute", right : 0, top : 0, zIndex : 3}} onPress = {() => this.setState({showModal : false})}>
@@ -146,13 +176,19 @@ class Profile extends React.Component{
 
                 <View style = {styles.inputBox}>
 
+                    <CustomImagePicker 
+                        label="avatar"
+                        value={ `${AVATAR_PREFIX}${this.state.avatar}` }
+                        hideLabel={ true }
+                        handleChange={ this.handleChangePhoto }
+                    />
 
                   <InputForm inputPlaceHolder = "Your Name" 
-                  inputKeyType = "default" 
-                  inputSecure = {false} 
-                  icon = "ios-ionitron"
-                  onChange = {(name)=> this.setState({name:name}, 
-                  
+                    value={ this.state.name }
+                    inputKeyType = "default" 
+                    inputSecure = {false} 
+                    icon = "ios-ionitron"
+                    onChange = {(name)=> this.setState({name:name},   
                   )}
                   />
 
@@ -161,11 +197,11 @@ class Profile extends React.Component{
 
 
                   <InputForm inputPlaceHolder = "Your Username" 
-                  inputKeyType = "default" 
-                  inputSecure = {false} 
-                  icon = "ios-contact"
-                  onChange = {(username)=> this.setState({username:username}, 
-                  
+                    value={ this.state.username }
+                    inputKeyType = "default" 
+                    inputSecure = {false} 
+                    icon = "ios-contact"
+                    onChange = {(username)=> this.setState({username:username}, 
                   )}
                   />
 
@@ -174,6 +210,7 @@ class Profile extends React.Component{
 
 
                   <InputForm inputPlaceHolder = "Your Email" 
+                    value={ this.state.email }
                   inputKeyType = "email-address" 
                   inputSecure = {false} 
                   icon = "ios-mail"
@@ -219,6 +256,7 @@ class Profile extends React.Component{
 
 
                   <InputForm inputPlaceHolder = "Your Phone Number" 
+                    value={ this.state.phone }
                   inputKeyType = "number-pad" 
                   inputSecure = {false} 
                   icon = "ios-call"
@@ -254,7 +292,7 @@ class Profile extends React.Component{
 
                 <View style = {styles.inputBox}>
 
-                <TouchableOpacity style = {styles.setCalendarStyle} onPress = {() => this.setState({showBirthday: !this.state.showBirthday}, () => console.log(this.state.showBirthday)) }>
+                {/* <TouchableOpacity style = {styles.setCalendarStyle} onPress = {() => this.setState({showBirthday: !this.state.showBirthday}, () => console.log(this.state.showBirthday)) }>
                     { this.state.isBirthdaySelected ? <Text style = {{color : "white", padding : 10}}>{this.state.birth_date_old}</Text> : <Text style = {{color : "white", padding : 10}}>Your Birthday</Text>} 
                 </TouchableOpacity>
 
@@ -269,7 +307,7 @@ class Profile extends React.Component{
                 
                 
                 
-                />}
+                />} */}
 
 
                  

@@ -10,7 +10,7 @@ export const getHeader = () => {
   };
 };
 
-const getFullUrl = endpoint => {
+export const getFullUrl = endpoint => {
   return "http://5c4957b31cca.ngrok.io/" + endpoint;
 };
 

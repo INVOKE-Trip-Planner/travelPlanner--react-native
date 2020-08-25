@@ -13,10 +13,12 @@ class InputForm extends React.Component{
 
                 
                 <TextInput placeholder = {this.props.inputPlaceHolder}
-                style = {styles.formInput}
-                keyboardType = {this.props.inputKeyType || "default"} // the symbol || represents or
-                secureTextEntry = {this.props.inputSecure || false}
-                onChangeText = {this.props.onChange}/>
+                    value= { this.props.value }
+                    style = {styles.formInput}
+                    keyboardType = {this.props.inputKeyType || "default"} // the symbol || represents or
+                    secureTextEntry = {this.props.inputSecure || false}
+                    onChangeText = {this.props.onChange}
+                />
             </View>
         )
     }

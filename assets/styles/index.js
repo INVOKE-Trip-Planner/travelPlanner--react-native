@@ -1,0 +1,77 @@
+import { StyleSheet } from "react-native";
+
+export const global_styles = StyleSheet.create({
+    mainView: {
+        flex: 1,
+        width: '100%',
+    },
+    scrollContent: {
+        flexGrow: 1, // flex: 1 wont scroll,
+        width: '100%',
+        // borderWidth: 1,
+        alignItems: 'center',
+        padding: 25,
+    },
+    container: {
+        width: '100%',
+        alignItems: 'center',
+    },
+    titleText: {
+        fontSize: 25,
+        fontWeight: 'bold',
+        color: 'white',
+        textShadowColor: 'rgba(240, 52, 52, 0.9)',
+        textShadowOffset: { width: 4, height: 2.5, },
+        textShadowRadius: 5,
+    },
+    buttonText: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: 'white',
+        textShadowColor: 'rgba(240, 52, 52, 0.9)',
+        textShadowOffset: { width: 2, height: 2, },
+        textShadowRadius: 5,
+    },
+    buttonContainer: {
+        width: 150,
+        height: 50,
+        backgroundColor: 'green',
+        shadowColor: 'rgba(0, 0, 128, 1)',
+        shadowOffset: { width: 5, height: 5, },
+        shadowRadius: 5,
+        elevation: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 5,
+    },
+    invisibleButtonContainer: {
+        width: 150,
+        height: 50,
+        // backgroundColor: 'green',
+        // shadowColor: 'rgba(0, 0, 128, 1)',
+        // shadowOffset: { width: 5, height: 5, },
+        // shadowRadius: 5,
+        // elevation: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        // borderRadius: 5,
+    },
+    labelText: {
+        textTransform: 'capitalize',
+        fontWeight: 'bold',
+        color: 'navy',
+    }, 
+    avatar: {
+        width: 150,
+        height: 150,
+        backgroundColor: 'skyblue',
+        borderRadius: 75,
+        marginVertical: 20,
+        marginTop: 0,
+
+        shadowColor: 'rgba(0, 0, 128, 1)',
+        shadowOffset: { width: 5, height: 5, },
+        shadowRadius: 5,
+        elevation: 10,
+    }, 
+})

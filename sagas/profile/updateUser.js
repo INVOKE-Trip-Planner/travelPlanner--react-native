@@ -13,17 +13,25 @@ function* updateUser({ data }) {
     // console.log("editDes saga DATA: ", data);
     const headers = { Authorization: `Bearer ${token}` };
 
-    const formData = new FormData();
-    formData.append('name', data.name);
-    formData.append('username', data.username);
-    formData.append('email', data.email);
-    formData.append('password', data.password);
-    formData.append('password_confirmation', data.password_confirmation);
-    formData.append('phone', data.phone);
-    formData.append('trip_id', data.trip_id);
-    formData.append('birth_date', data.birth_date);
+    // const formData = new FormData();
+    // formData.append('name', data.name);
+    // formData.append('username', data.username);
+    // formData.append('email', data.email);
+    // formData.append('password', data.password);
+    // formData.append('password_confirmation', data.password_confirmation);
+    // formData.append('phone', data.phone);
+    // formData.append('gender', data.gender);
+    // formData.append('birth_date', data.birth_date);
+    // formData.append('avatar', data.avatar);
    
+    const formData = new FormData();
+    const fields = ['name', 'username', 'email', 'password', 'password_confirmation', 'phone', 'gender', 'birth_date', 'avatar'];
 
+    fields.forEach(field => {
+        if (data[field]) {
+          formData.append(field, data[field]);
+        }
+    });   
 
     // pass to the api
     const { response, error } = yield call(api.updateUser, formData, headers);
