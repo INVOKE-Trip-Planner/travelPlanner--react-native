@@ -15,7 +15,7 @@ const config = {
   key: "root",
   storage: AsyncStorage,
   // storage,
-  whitelist: ["PROFILE"] // keep the token in the profile activeuser session
+  whitelist: ["PROFILE", "TRIP"] // keep the token in the profile activeuser session
 };
 
 const reducer = persistCombineReducers(config, reducers);
