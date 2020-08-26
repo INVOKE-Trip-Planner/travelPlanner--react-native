@@ -5,6 +5,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { global_styles } from '../../assets/styles';
 import { Ionicons } from "@expo/vector-icons";
 import moment from 'moment';
+import {MAIN_COLOR} from "common/style";
 
 // import { TouchableOpacity } from 'react-native-gesture-handler';
 
@@ -21,22 +22,247 @@ const FieldWrapper = ({ containerStyle, hideLabel, children, label, errors}) => 
     <View style={ [styles.container, containerStyle] }>
         {!hideLabel && <Text style={ styles.labelText }>{ label }</Text>}
         {children}
-        <Text style={ styles.errorMessage }>
+        {errors && <Text style={ styles.errorMessage }>
             { errors }
-        </Text>
+        </Text> }
     </View>
 )
 
-export const CustomImagePicker = ({ containerStyle, hideLabel, label, errors, children, value, readonly, handleChange, ...rest }) => {
+export const BannerImagePicker = ({ containerStyle, hideLabel, label, errors, children, value, handleChange, defaultValue, handleSubmit, ...rest }) => {
     
     const prevValue = usePrevious(value);
 
-    const [image, setImage] = React.useState(value)
+    const [showImageToggle, setShowImageToggle] = React.useState(rest.showImageToggle)
+    const [image, setImage] = React.useState((value === defaultValue) ? null : value)
+    const [readonly, setReadonly] = React.useState(showImageToggle ? true : rest.readonly)
+
     // console.log(value)
 
     useEffect(() => {
         if (prevValue !== value) {
-            setImage(value);
+            setImage((value === defaultValue) ? null : value);
+            setShowImageToggle(rest.showImageToggle)
+            setReadonly(showImageToggle ? true : rest.readonly)
+        }
+    }, [value])
+    
+
+    const _pickImage = async () => {
+        try {
+          let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+          });
+          if (!result.cancelled) {
+            setImage(result.uri)
+          }
+
+          const value = {
+              uri: result.uri,
+              type: 'multipart/form-data', // 'image.jpg',
+              name: 'photo.jpg',
+          }
+    
+        //   formikProps.setFieldValue(formikKey, result.uri)
+          handleChange(value);
+
+          console.log(result);
+        } catch (E) {
+          console.log(E);
+        }
+    }
+
+    const _saveImage = async () => {
+        try {
+        //   let result = await ImagePicker.launchImageLibraryAsync({
+        //     mediaTypes: ImagePicker.MediaTypeOptions.All,
+        //     allowsEditing: true,
+        //     aspect: [4, 3],
+        //     quality: 1,
+        //   });
+        //   if (!result.cancelled) {
+        //     setImage(result.uri)
+        //   }
+
+          const value = {
+              uri: image,
+              type: 'multipart/form-data', // 'image.jpg',
+              name: 'photo.jpg',
+          }
+
+          const data = {
+              id: rest.tripData.id,
+              trip_banner: value,
+          }
+        //   alert(data);
+        //   formikProps.setFieldValue(formikKey, result.uri)
+          handleSubmit(data);
+
+          console.log(result);
+        } catch (E) {
+          console.log(E);
+        }
+    }
+
+    const _exit = () => {
+        setImage(value)
+        setReadonly(true)
+        setShowImageToggle(true)
+    }
+
+    return(
+        <FieldWrapper
+            containerStyle={[
+                // containerStyle,
+                {
+                    // alignItems: 'center',
+                    // borderWidth: 1,
+                }
+            ]}
+            hideLabel={ hideLabel || false }
+            label={ label } 
+            errors={ errors }
+        >
+            <View
+                style={[ 
+                    {
+                        // width: 400,
+                        // height: 150,
+                        // marginVertical: 20,
+                        // marginTop: 0,
+                        // alignSelf: 'center',
+                        // backgroundColor: 'transparent',
+                        // overflow: 'hidden',
+                    }
+                ]}
+            >
+                <ImageBackground
+                    style={[ 
+                        // global_styles.avatar,
+                        {
+                            alignSelf: 'center',
+                            overflow: 'hidden',
+                            zIndex: 0,
+                        },
+                        {
+                            width: 300,
+                            // flex: 1,
+                            height: 120,
+
+                            borderTopLeftRadius : 20, 
+                            borderTopRightRadius: 20, 
+                            height : 120,
+                            // width: '100%'
+                        }
+                    ]}
+                    source={{ uri: image || defaultValue }}
+                >
+                    { (!readonly) ? ( <TouchableOpacity
+                        onPress={ image ? _saveImage : _pickImage }
+                        style={[
+                            // global_styles.avatar,
+                            {
+                                backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                                alignItems: 'center',
+                                borderRadius: 0,
+                                position: 'absolute',
+                                bottom: 0,
+                                width: '100%',
+                                padding: 10,
+                            }
+                        ]}
+                    >
+                        <Text
+                            style={[ 
+                                // inputStyles,
+                                {
+                                    // position: 'absolute',
+                                    borderWidth: 0,
+                                    color: 'grey', 
+                                    textAlign: 'center',
+                                    fontSize: 20,
+                                    width: '100%',
+                                    textAlign: 'center',
+                                    // bottom: -20,
+                                }
+                            ]}
+                        >
+                            { image ? 'Save' : 'Upload' }
+                        </Text>
+                            
+                    </TouchableOpacity> ) : null }
+
+                </ImageBackground>
+
+                { (!readonly) ? (
+                    <TouchableOpacity
+                        style={{
+                            position: 'absolute',
+                            right: 10,
+                            elevation: 11,
+                        }}
+                        onPress={ () => image ? setImage(null) : _exit() }
+                    >
+                        <Ionicons 
+                            style={{
+                                margin: 5,
+                                width: 25,
+                                height: 25,
+                                color: MAIN_COLOR, //'rgba(0, 0, 0, 0.6)',
+                            }} 
+                            name="ios-close-circle" 
+                            size={25} 
+                        />
+                    </TouchableOpacity>) : null }
+
+                    {
+                        (showImageToggle) && (
+                            <TouchableOpacity
+                                style={{
+                                    position: 'absolute',
+                                    right: 10,
+                                    bottom: 10,
+                                    elevation: 11,
+                                }}
+                                onPress={ () => {
+                                    setShowImageToggle(false)
+                                    setReadonly(false)
+                                    setImage(null)
+                                } }
+                            >
+                                <Ionicons 
+                                    style={{
+                                        margin: 5,
+                                        width: 25,
+                                        height: 25,
+                                        color: MAIN_COLOR, //'rgba(0, 0, 0, 0.6)',
+                                    }} 
+                                    name="ios-images"
+                                    size={25} 
+                                />
+                            </TouchableOpacity>
+                        )
+                    }
+            </View>
+
+        </FieldWrapper>
+    )
+}
+
+export const CustomImagePicker = ({ containerStyle, hideLabel, label, errors, children, value, handleChange, defaultValue, showImageToggle, ...rest }) => {
+    
+    const prevValue = usePrevious(value);
+
+    const [image, setImage] = React.useState((value === defaultValue) ? null : value)
+    const [readonly, setReadonly] = React.useState(showImageToggle ? true : rest.readonly)
+
+    // console.log(value)
+
+    useEffect(() => {
+        if (prevValue !== value) {
+            setImage((value === defaultValue) ? null : value);
         }
     }, [value])
     
@@ -104,7 +330,7 @@ export const CustomImagePicker = ({ containerStyle, hideLabel, label, errors, ch
                             zIndex: 0,
                         }
                     ]}
-                    source={{ uri: image }}
+                    source={{ uri: image || defaultValue }}
                 >
                     { (!readonly && !image) ? ( <TouchableOpacity
                         onPress={ _pickImage }
@@ -164,6 +390,30 @@ export const CustomImagePicker = ({ containerStyle, hideLabel, label, errors, ch
                         />
                     </TouchableOpacity>) : null }
 
+                {
+                    (showImageToggle) && (
+                        <TouchableOpacity
+                            style={{
+                                position: 'absolute',
+                                right: 10,
+                                bottom: 10,
+                                elevation: 11,
+                            }}
+                            onPress={ () => setReadonly(false) }
+                        >
+                            <Ionicons 
+                                style={{
+                                    margin: 5,
+                                    width: 25,
+                                    height: 25,
+                                    color: 'rgba(0, 0, 0, 0.6)',
+                                }} 
+                                name="image-outline"
+                                size={25} 
+                            />
+                        </TouchableOpacity>
+                    )
+                }
             </View>
 
         </FieldWrapper>

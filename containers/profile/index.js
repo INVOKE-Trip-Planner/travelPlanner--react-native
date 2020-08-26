@@ -253,6 +253,7 @@ class Profile extends React.Component{
                     <CustomImagePicker 
                         label="avatar"
                         value={ `${AVATAR_PREFIX}${this.state.avatar}` }
+                        defaultValue={ `${AVATAR_PREFIX}placeholder.jpg`}
                         hideLabel={ true }
                         handleChange={ this.handleChangePhoto }
                     />

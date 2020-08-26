@@ -22,9 +22,11 @@ import Actions from "actions"
 
 import {MAIN_COLOR} from "common/style"
 import { getFullUrl } from "api/helper.js"
+import { CustomImagePicker, BannerImagePicker } from "../../components/inputs";
 
 
 const AVATAR_PREFIX = getFullUrl('storage/avatars/')
+const BANNER_PREFIX = getFullUrl('storage/trip_banners/')
 
 
 
@@ -152,7 +154,18 @@ class Dashboard extends React.Component{
                 
                 <View style = {{backgroundColor : null, flex : 1}}>
 
-                    <Image style = {{borderTopLeftRadius : 20, borderTopRightRadius: 20, height : 120}}source ={require("assets/bannerplaceholder.jpg")}/>
+                    {/* <Image style = {{borderTopLeftRadius : 20, borderTopRightRadius: 20, height : 120}} source={require("assets/bannerplaceholder.jpg")}/> */}
+
+                    <BannerImagePicker 
+                        label="trip_banner"
+                        value={ `${BANNER_PREFIX}${item.item.trip_banner}` }
+                        defaultValue={ `${BANNER_PREFIX}placeholder.jpg` }
+                        hideLabel={true}
+                        showImageToggle={true}
+                        handleSubmit={ this.props.onUpdateTrip }
+                        tripData={ item.item }
+                        // readonly
+                    />
 
                     <Text>Trip ID : {item.item.id}</Text>
                     <Text>Trip Name : {item.item.trip_name}</Text>
