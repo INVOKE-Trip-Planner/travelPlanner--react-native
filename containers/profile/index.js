@@ -49,7 +49,8 @@ class Profile extends React.Component{
                 birth_date :  props.getGetUpdateUserData.data ? props.getGetUpdateUserData.data.birth_date : '',   
                 avatar :  props.getGetUpdateUserData.data ? props.getGetUpdateUserData.data.avatar : 'placeholder.jpg',   
                 date : new Date(),
-                image : null,           
+                image : null,   
+                showModalQRCode :true        
             }
         }
 
@@ -115,25 +116,65 @@ class Profile extends React.Component{
         const avatarImage = this.props.getGetUpdateUserData.data ? `${AVATAR_PREFIX}${this.props.getGetUpdateUserData.data.avatar}` : `${AVATAR_PREFIX}placeholder.jpg`;
 
         return(
-            <View style = {{flex : 1, backgroundColor:  "lightblue", alignItems : "center"}}>
+            <ScrollView style = {{flex : 1, backgroundColor:  "white"}}>
+                <View style = {{alignItems  :"center"}}>
                 <Header/>
 
 
 
                
-                {/* <Image style = {styles.userQRCode}source={require('assets/userqrcode.png')}
-                /> */}
+                {this.state.showModalQRCode && 
+                <Modal
+                    animationType="fade"
+                    transparent={true}
+                >
 
-                 {/* <Image style = {styles.userPhoto} source={require('assets/placeholder.jpg')}/> */}
+                    {/* <UpdateUserFrom /> */}
+
+                    <View style = {styles.ModalFlex}>
+                        {/* <ScrollView style = {styles.ModalBackGround}> */}
+                            <TouchableOpacity style = {{position : "absolute", right : 0, top : 0, zIndex : 3}} onPress = {() => this.setState({showModalQRCode : false})}>
+                                <Text style = {{color : MAIN_COLOR}}>CLOSE</Text>
+                            </TouchableOpacity>
+
+                            
+                            <View style= {styles.centerScrollView}>
+                                <View style = {{backgroundColor : "white" , width  : "100%",  height : "100%" ,alignItems : "center", justifyContent : "center"}}>
+
+
+                                     <Text style = {{fontSize : 20, marginBottom : 20}}> Lets Go on a Trip !</Text>
+
+
+                    <QRCode            
+                        value={
+                            `{
+                                "id": ${this.props.getGetUpdateUserData.data.id},
+                                "name": "${this.props.getGetUpdateUserData.data.name}",
+                                "avatar": "${this.props.getGetUpdateUserData.data.avatar}"
+                            }`
+                            } 
+                            size = {250}
+                        />
+             
+
+             
+                
+             
+
+                  
+
+                                </View>
+                            </View>
+                        {/* </ScrollView> */}
+                    </View>
+                </Modal>
+                }
+
+
+
                  
-                <QRCode value={
-                        `{
-                            "id": ${this.props.getGetUpdateUserData.data.id},
-                            "name": "${this.props.getGetUpdateUserData.data.name}",
-                            "avatar": "${this.props.getGetUpdateUserData.data.avatar}"
-                        }`
-                    } 
-                />
+                 
+             
 
                  <CustomImagePicker 
                     label="avatar"
@@ -145,7 +186,14 @@ class Profile extends React.Component{
                  {/* <Button title="Pick an image from camera roll" onPress={this._pickImage} /> */}
                 {this.state.image && <Image source={{ uri: this.state.image }} style={{ width: 200, height: 200 }} />}
 
-                 
+                <TouchableOpacity onPress = {() => this.setState({showModalQRCode: true})}> 
+                <View style = {{flexDirection : "row" , backgroundColor : "red",  padding : 10, width : 170, alignItems : "center", justifyContent : "space-between"}}>
+                    <Text style = {{color : "white", textAlign : "center"}}>Add Me To Your Trip</Text>                
+                    <Ionicons  name= "md-qr-scanner" style = {{fontSize : 20, color : "white"}}/> 
+
+                </View>
+                
+                </TouchableOpacity>  
 
                 <View>
 
@@ -197,6 +245,10 @@ class Profile extends React.Component{
                  <View style = {styles.mainBox}>
 
                 <View style = {styles.inputBox}>
+
+
+
+
 
                     <CustomImagePicker 
                         label="avatar"
@@ -351,9 +403,12 @@ class Profile extends React.Component{
 
                 </Modal>
                 }
+
+
+                </View>
                 
 
-            </View>
+            </ScrollView>
         )
     }
 }

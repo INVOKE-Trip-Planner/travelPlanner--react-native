@@ -45,8 +45,8 @@ class Auth extends React.Component{
         //     password : this.state.password
         //   }
         const data = {
-          username: 'test0005', //this.state.username,
-          password : 'test0005', //this.state.password,
+          username: 'test0007', //this.state.username,
+          password : 'test0007', //this.state.password,
         }
 
         this.props.onLogin(data);
