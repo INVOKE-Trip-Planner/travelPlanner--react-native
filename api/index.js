@@ -28,7 +28,9 @@ export const deleteTrip = (data, headers) => {
 
 }
 
-
+export const updateTrip = (data, headers) => {
+  return fetchApi('post', `api/trip/update`, data, headers)
+};
 
 // ---------ACCOMMODATION---------------------------
 
