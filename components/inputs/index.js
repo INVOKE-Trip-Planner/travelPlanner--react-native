@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet, Switch, Picker, TouchableOpacity, Image, ImageBackground, Button } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import * as ImagePicker from 'expo-image-picker';
@@ -7,6 +7,15 @@ import { Ionicons } from "@expo/vector-icons";
 import moment from 'moment';
 
 // import { TouchableOpacity } from 'react-native-gesture-handler';
+
+// component did update to get prevprops
+function usePrevious(value) {
+    const ref = React.useRef();
+    useEffect(() => {
+      ref.current = value;
+    });
+    return ref.current;
+}
 
 const FieldWrapper = ({ containerStyle, hideLabel, children, label, errors}) => (
     <View style={ [styles.container, containerStyle] }>
@@ -20,8 +29,17 @@ const FieldWrapper = ({ containerStyle, hideLabel, children, label, errors}) => 
 
 export const CustomImagePicker = ({ containerStyle, hideLabel, label, errors, children, value, readonly, handleChange, ...rest }) => {
     
+    const prevValue = usePrevious(value);
+
     const [image, setImage] = React.useState(value)
-    console.log(value)
+    // console.log(value)
+
+    useEffect(() => {
+        if (prevValue !== value) {
+            setImage(value);
+        }
+    }, [value])
+    
 
     const _pickImage = async () => {
         try {
@@ -37,7 +55,7 @@ export const CustomImagePicker = ({ containerStyle, hideLabel, label, errors, ch
 
           const value = {
               uri: result.uri,
-              type: 'image.jpg',
+              type: 'multipart/form-data', // 'image.jpg',
               name: 'photo.jpg',
           }
     

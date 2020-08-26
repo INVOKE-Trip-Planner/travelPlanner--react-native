@@ -18,10 +18,9 @@ function* login({ data }) {
   if (response && response.status === 200){
 
     console.log(response);
-    yield put(Actions.loginSuccess(response.data));
     yield put(Actions.activateUserSession(response.data.token));
     yield put(Actions.updateUserSuccess(response.data.user)); // login success => user get token
-
+    yield put(Actions.loginSuccess(response.data));
 
     //update the usersession
 

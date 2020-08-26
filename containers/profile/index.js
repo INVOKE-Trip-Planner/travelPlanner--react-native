@@ -47,9 +47,17 @@ class Profile extends React.Component{
                 gender : props.getGetUpdateUserData.data ? props.getGetUpdateUserData.data.gender : '',
                 birth_date_old : props.getGetUpdateUserData.data ?  props.getGetUpdateUserData.data.birth_date : '',
                 birth_date :  props.getGetUpdateUserData.data ? props.getGetUpdateUserData.data.birth_date : '',   
-                avatar :  props.getGetUpdateUserData.data ? props.getGetUpdateUserData.data.avatar : '',   
+                avatar :  props.getGetUpdateUserData.data ? props.getGetUpdateUserData.data.avatar : 'placeholder.jpg',   
                 date : new Date(),
                 image : null,           
+            }
+        }
+
+        componentDidUpdate(prevProps) {
+
+            if (prevProps.getGetUpdateUserData.data && prevProps.getGetUpdateUserData.data.avatar !== this.props.getGetUpdateUserData.data.avatar) {
+                console.log('store avatar updated', this.props.getGetUpdateUserData.data.avatar);
+                this.setState({ avatar: this.props.getGetUpdateUserData.data.avatar })
             }
         }
 
@@ -103,6 +111,9 @@ class Profile extends React.Component{
         }
         
     render() {
+
+        const avatarImage = this.props.getGetUpdateUserData.data ? `${AVATAR_PREFIX}${this.props.getGetUpdateUserData.data.avatar}` : `${AVATAR_PREFIX}placeholder.jpg`;
+
         return(
             <View style = {{flex : 1, backgroundColor:  "lightblue", alignItems : "center"}}>
                 <Header/>

@@ -162,7 +162,7 @@ class Dashboard extends React.Component{
                     <View style = {{flexDirection : "row", justifyContent : "space-between", alignItems : "center", width : "100%", backgroundColor :null}}>
 
 
-                        <TouchableOpacity onPress = {() => this.addUserButtonPressed()}>
+                        <TouchableOpacity onPress = {() => this.addUserButtonPressed(item.item)}>
                             <Text style = {{backgroundColor : MAIN_COLOR, fontSize : 10, padding : 5, borderRadius :  5, color : "white", margin : 2.5, width : 70, textAlign : "center"}}>Add User </Text>
                             {/* <Ionicons  name= "md-person-add" style = {{fontSize : 20, color : MAIN_COLOR, margin : 2.5, position : "absolute", bottom : 20, right : 0}}/> */}
                         </TouchableOpacity>
@@ -386,9 +386,9 @@ class Dashboard extends React.Component{
     }
 
 
-    addUserButtonPressed(){
+    addUserButtonPressed(tripData){
         // this.setState({showAddUserModal: true})
-        this.props.navigation.navigate("QRScanner")
+        this.props.navigation.navigate("QRScanner", { tripData })
     }
 
 

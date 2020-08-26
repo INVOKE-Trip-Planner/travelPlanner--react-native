@@ -5,5 +5,5 @@ import updateUser from "./updateUser";
 
 export default combineReducers({
   userSession,
-  updateUser
+  updateUser,
 });
