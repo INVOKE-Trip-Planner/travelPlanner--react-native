@@ -21,6 +21,11 @@ import Actions from "actions"
 
 
 import {MAIN_COLOR} from "common/style"
+import { getFullUrl } from "api/helper.js"
+
+
+const AVATAR_PREFIX = getFullUrl('storage/avatars/')
+
 
 
 
@@ -110,7 +115,7 @@ class Dashboard extends React.Component{
 
     _renderItemList2(item){
 
-        // console.log("render item 2  here " , item.index)
+        console.log("render item 2  here " , `${AVATAR_PREFIX}${item.item.avatar}`)
 
         return(
 
@@ -120,13 +125,13 @@ class Dashboard extends React.Component{
 
                 
 
-                <View style = {{flexDirection : "row", backgroundColor  : null, alignItems : "center", justifyContent : "center"}}>
+                {/* <View style = {{flexDirection : "row", backgroundColor  : null, alignItems : "center", justifyContent : "center"}}>
                     <Text style = {{alignItems :"center", backgroundColor :null}}>{item.item.id}</Text>
-                </View> 
+                </View>  */}
 
                 <View style = {{flexDirection : "row", backgroundColor  : null}}>
-                    {/* <Text>{item.item.user_id}</Text> */}
-                    <Ionicons  name= "md-person" style = {{fontSize : 20, color : "black", margin : 2.5}}/>   
+                    {/* <Ionicons  name= "md-person" style = {{fontSize : 20, color : "black", margin : 2.5}}/>   */}
+                    <Image source={{ uri:  `${AVATAR_PREFIX}${item.item.avatar}` }} style={{ width: 25, height: 25 , borderRadius : 12.5}} /> 
                 </View>
 
             </View>
@@ -136,7 +141,7 @@ class Dashboard extends React.Component{
 
     _renderItemList(item){
 
-        console.log("render item is here " , item.item.trip_banner)
+        // console.log("render item is here " , item.item.trip_banner)
 
 
 
@@ -171,7 +176,7 @@ class Dashboard extends React.Component{
 
                             <FlatList
 
-                                style = {{backgroundColor : null,  height : 40, backgroundColor : "red",}}
+                                style = {{backgroundColor : null,  height : 40, backgroundColor : null,}}
                                 data = {item.item.users}
                                 renderItem = {(item) => this._renderItemList2(item)}
                                 numColumns = {1}
