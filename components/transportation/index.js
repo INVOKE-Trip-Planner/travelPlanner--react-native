@@ -218,7 +218,7 @@ class Transportation extends React.Component{
                 <Text>{item.item.cost}</Text>
                 <Text>{item.item.booking_id}</Text>
                 <Text>{item.item.operator}</Text>
-                <Text>{item.item.destination_id} and { this.props.destinationID}</Text>
+                {/* <Text>{item.item.destination_id} and { this.props.destinationID}</Text> */}
                 <View style = {{position : "absolute", top : 0, right : 0, flexDirection : "row"}}>
                     <TouchableOpacity onPress = {() => {this._updateButtonPressed(item.item.id)}} >
                         <Ionicons  name= "ios-open" style = {styles.cardDetails}/>   
@@ -339,7 +339,7 @@ class Transportation extends React.Component{
 
             </FlatList>
 
-        <Text>{this.props.destinationID}</Text>
+        {/* <Text>{this.props.destinationID}</Text> */}
 
             <TouchableOpacity style = {{position : "absolute", bottom : 10, right : 20}} onPress = {()=>this.addTransportationButtonisPressed()}>
                         <Ionicons  name= "md-add-circle" style = {{ fontSize : 50, color : MAIN_COLOR}}/>
@@ -716,16 +716,19 @@ const styles = {
 
 },
 
-    card : {
-        width : 250,
-        height : 300,
-        borderColor : MAIN_COLOR,
-        borderWidth : 1, 
-        marginVertical : 15, 
-        borderRadius : 10,
-        paddingVertical : 30
+card : {
+    width : 250,
+    height : 300,
+    borderColor : MAIN_COLOR,
+    borderWidth : 1, 
+    marginVertical : 15, 
+    borderRadius : 10,
+    paddingVertical : 30,
+    padding : 30,
+    paddingTop : 50,
+    justifyContent : "space-between"
+    },
 
-        },
 
 
 

@@ -104,7 +104,7 @@ class Iternaries extends React.Component{
 
             </FlatList>
 
-        <Text>{this.props.destinationID}</Text>
+        {/* <Text>{this.props.destinationID}</Text> */}
 
             <TouchableOpacity style = {{position : "absolute", bottom : 10, right : 20}} onPress = {()=>this.addIternaryButtonisPressed()}>
                         <Ionicons  name= "md-add-circle" style = {{ fontSize : 50, color : MAIN_COLOR}}/>
@@ -188,9 +188,12 @@ const styles = {
     borderWidth : 1, 
     marginVertical : 15, 
     borderRadius : 10,
-    paddingVertical : 30
-
+    paddingVertical : 30,
+    padding : 30,
+    paddingTop : 50,
+    justifyContent : "space-between"
     },
+
 
     cardTitle : {
 

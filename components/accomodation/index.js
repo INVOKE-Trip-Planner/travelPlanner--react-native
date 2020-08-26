@@ -207,17 +207,19 @@ class Accomodation extends React.Component{
                 {item.item.destination_id == this.props.destinationID &&
            
             <View style = {styles.card}>
-                <Text>Acc ID : {item.item.id} </Text>
-                <Text>Accomodation Name : {item.item.accommodation_name}</Text>
+                {/* <Text>Acc ID : {item.item.id} </Text> */}
+                <Text>Venue : {item.item.accommodation_name}</Text>
+                <Text>Booking ID : {item.item.booking_id}</Text>
+
                 <Text>Check In Date : {item.item.checkin_date}</Text>
                 <Text>Check Out Date: {item.item.checkout_date}</Text>
-                <Text>Check In Hour: {item.item.checkin_hour}</Text>
-                <Text>Check Out Hour : {item.item.checkout_hour}</Text>
-                <Text>Check In Minutes : {item.item.checkin_minute}</Text>
-                <Text>Check Out Minutes : {item.item.checkout_minute}</Text>
+                <Text>Check In Time: {item.item.checkin_hour} : {item.item.checkin_minute}</Text>
+                <Text>Check Out Hour : {item.item.checkout_hour} : {item.item.checkout_minute}</Text>
                 <Text>Cost : {item.item.cost}</Text>
-                <Text>Booking ID : {item.item.booking_id}</Text>
-                <Text>Destination ID : {item.item.destination_id} and {this.props.destinationID}</Text>
+                {/* <Text>Check In Minutes : {item.item.checkin_minute}</Text>
+                <Text>Check Out Minutes : {item.item.checkout_minute}</Text> 
+              
+                <Text>Destination ID : {item.item.destination_id} and {this.props.destinationID}</Text> */}
                
                 <View style = {{position : "absolute", top : 0, right : 0, flexDirection : "row"}}>
                     <TouchableOpacity onPress = {() => this._updateButtonPressed(item.item.id)} >
@@ -337,7 +339,7 @@ class Accomodation extends React.Component{
 
             </FlatList>
 
-        <Text>{this.props.destinationID}</Text>
+        {/* <Text>{this.props.destinationID}</Text> */}
 
             <TouchableOpacity onPress = {() => this.addAccomodationButtonisPressed()} style = {{position : "absolute", bottom : 10, right : 20}}>
                         <Ionicons  name= "md-add-circle" style = {{ fontSize : 50, color : MAIN_COLOR}}/>
@@ -690,7 +692,10 @@ const styles = StyleSheet.create({
     borderWidth : 1, 
     marginVertical : 15, 
     borderRadius : 10,
-    paddingVertical : 30
+    paddingVertical : 30,
+    padding : 30,
+    paddingTop : 50,
+    justifyContent : "space-between"
     },
 
     cardTitle : {

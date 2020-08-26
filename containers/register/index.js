@@ -103,6 +103,52 @@ class Register extends React.Component{
           
         }
 
+
+
+        if (data.name.length == 0 ) {
+
+          Alert.alert("Registration Failed", "Please key in your name",[{text : "OK"}])
+      
+      }
+
+      else if (data.username.length == 0 ) {
+
+        Alert.alert("Registration Failed", "Please key in username name",[{text : "OK"}])
+      
+      }
+
+      else if (data.username.length == 0 ) {
+
+        Alert.alert("Registration Failed", "Please key in username name",[{text : "OK"}])
+      
+      }
+      else if (data.password.length < 8 ) {
+
+        Alert.alert("Registration Failed", "Your password must contain atleast 8 characters",[{text : "OK"}])
+      
+      }
+      else if (data.password !== data.password_confirmation ) {
+
+        Alert.alert("Registration Failed", "Your password confirmation is invalid",[{text : "OK"}])
+      
+      }
+      else if (data.phone.length < 10 || data.phone.length > 11 ) {
+
+        Alert.alert("Registration Failed", "Invalid phone number",[{text : "OK"}])
+      
+      }
+      else if (data.birth_date < moment().format("YYYY-MM-DD")) {
+
+        Alert.alert("Registration Failed", "Your birthday must be in the past.",[{text : "OK"}])
+      
+      }
+
+
+      else {
+
+
+
+
         this.props.onRegister(data)
         
         Alert.alert("Registration Success", "Thank you registering with us",
@@ -112,6 +158,9 @@ class Register extends React.Component{
 
         // console.log(data)
       }]);   
+
+
+    }
 
         
         
