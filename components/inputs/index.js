@@ -76,15 +76,6 @@ export const BannerImagePicker = ({ containerStyle, hideLabel, label, errors, ch
 
     const _saveImage = async () => {
         try {
-        //   let result = await ImagePicker.launchImageLibraryAsync({
-        //     mediaTypes: ImagePicker.MediaTypeOptions.All,
-        //     allowsEditing: true,
-        //     aspect: [4, 3],
-        //     quality: 1,
-        //   });
-        //   if (!result.cancelled) {
-        //     setImage(result.uri)
-        //   }
 
           const value = {
               uri: image,
@@ -180,7 +171,7 @@ export const BannerImagePicker = ({ containerStyle, hideLabel, label, errors, ch
                                 {
                                     // position: 'absolute',
                                     borderWidth: 0,
-                                    color: 'grey', 
+                                    color: MAIN_COLOR, // 'grey', 
                                     textAlign: 'center',
                                     fontSize: 20,
                                     width: '100%',
