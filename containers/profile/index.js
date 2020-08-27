@@ -26,7 +26,7 @@ import UpdateUserFrom from "./updateUserForm";
 
 
 import {MAIN_COLOR} from "common/style"
-
+import avatar_placeholder from 'assets/images/avatar_placeholder.jpg'
 
 
 const AVATAR_PREFIX = getFullUrl('storage/avatars/')
@@ -253,7 +253,7 @@ class Profile extends React.Component{
                     <CustomImagePicker 
                         label="avatar"
                         value={ `${AVATAR_PREFIX}${this.state.avatar}` }
-                        defaultValue={ `${AVATAR_PREFIX}placeholder.jpg`}
+                        defaultValue={  Image.resolveAssetSource(placeholder).uri } //`${AVATAR_PREFIX}placeholder.jpg`}
                         hideLabel={ true }
                         handleChange={ this.handleChangePhoto }
                     />

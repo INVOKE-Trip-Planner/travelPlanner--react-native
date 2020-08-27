@@ -23,7 +23,7 @@ import Actions from "actions"
 import {MAIN_COLOR} from "common/style"
 import { getFullUrl } from "api/helper.js"
 import { CustomImagePicker, BannerImagePicker } from "../../components/inputs";
-import bannerplaceholder from 'assets/images/placeholder.png'
+import placeholder from 'assets/images/placeholder.png'
 
 const AVATAR_PREFIX = getFullUrl('storage/avatars/')
 const BANNER_PREFIX = getFullUrl('storage/trip_banners/')
@@ -159,7 +159,7 @@ class Dashboard extends React.Component{
                     <BannerImagePicker 
                         label="trip_banner"
                         value={ `${BANNER_PREFIX}${item.item.trip_banner}` }
-                        defaultValue={ Image.resolveAssetSource(bannerplaceholder).uri }//`${BANNER_PREFIX}placeholder.jpg` }
+                        defaultValue={ Image.resolveAssetSource(placeholder).uri }//`${BANNER_PREFIX}placeholder.jpg` }
                         hideLabel={true}
                         showImageToggle={true}
                         handleSubmit={ this.props.onUpdateTrip }
