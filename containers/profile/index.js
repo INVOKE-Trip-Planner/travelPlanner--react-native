@@ -50,7 +50,7 @@ class Profile extends React.Component{
                 avatar :  props.getGetUpdateUserData.data ? props.getGetUpdateUserData.data.avatar : 'placeholder.jpg',   
                 date : new Date(),
                 image : null,   
-                showModalQRCode :true        
+                showModalQRCode :false        
             }
         }
 
@@ -93,8 +93,9 @@ class Profile extends React.Component{
 
             data = this.postProcessValue(data, this.props.getGetUpdateUserData.data)
             // console.log(data)
-            alert(JSON.stringify(data))
+            // alert(JSON.stringify(data))
             this.props.onUserUpdate(data)
+            this.setState({showModal : false})
 
         }
 
@@ -187,7 +188,7 @@ class Profile extends React.Component{
                 {this.state.image && <Image source={{ uri: this.state.image }} style={{ width: 200, height: 200 }} />}
 
                 <TouchableOpacity onPress = {() => this.setState({showModalQRCode: true})}> 
-                <View style = {{flexDirection : "row" , backgroundColor : "red",  padding : 10, width : 170, alignItems : "center", justifyContent : "space-between"}}>
+                <View style = {{flexDirection : "row" , borderRadius : 10, backgroundColor : MAIN_COLOR,  padding : 10, width : 170, alignItems : "center", justifyContent : "space-between"}}>
                     <Text style = {{color : "white", textAlign : "center"}}>Add Me To Your Trip</Text>                
                     <Ionicons  name= "md-qr-scanner" style = {{fontSize : 20, color : "white"}}/> 
 
@@ -195,15 +196,15 @@ class Profile extends React.Component{
                 
                 </TouchableOpacity>  
 
-                <View>
+                <View style = {{minHeight : 150, alignItems : "center", justifyContent : "space-between", paddingVertical : 10}}>
 
-                    <Text>Name { this.state.name}</Text>
-                    <Text>Email {this.state.email}</Text>
-                    <Text>Password : HIDDEN</Text>
-                    <Text>Password Confirmation : HIDDEN</Text>
-                    <Text>Phone {this.state.phone}</Text>
-                    <Text>Gender {this.state.gender}</Text>
-                    <Text>Birthday {this.state.birth_date}</Text>
+                    <Text style = {{ fontSize : 15, fontWeight : "bold"}}> { this.state.name}  </Text>
+                    <Text style = {styles.profileFont}> {this.state.email}    </Text>
+                    {/* <Text>Password : HIDDEN</Text>
+                    <Text>Password Confirmation : HIDDEN</Text> */}
+                    <Text style = {styles.profileFont}> {this.state.phone}   </Text>
+                    <Text style = {styles.profileFont}> {this.state.gender}   </Text>
+                    <Text style = {styles.profileFont}> {this.state.birth_date}   </Text>
                     
 
                 </View>
@@ -253,7 +254,7 @@ class Profile extends React.Component{
                     <CustomImagePicker 
                         label="avatar"
                         value={ `${AVATAR_PREFIX}${this.state.avatar}` }
-                        defaultValue={  Image.resolveAssetSource(placeholder).uri } //`${AVATAR_PREFIX}placeholder.jpg`}
+                        defaultValue={  Image.resolveAssetSource(avatar_placeholder).uri } //`${AVATAR_PREFIX}placeholder.jpg`}
                         hideLabel={ true }
                         handleChange={ this.handleChangePhoto }
                     />
@@ -609,6 +610,12 @@ const styles = {
         marginBottom : 10
 
     },
+
+
+    profileFont : { 
+        fontSize : 15, 
+        fontWeight : "bold"
+    }
 }
 
 

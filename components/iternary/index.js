@@ -32,28 +32,263 @@ class Iternaries extends React.Component{
         this.state = {
             showModal : false,
             day : "",
+            hour : "",
+            minute : "",
+            title : "",
+            description : "",
+            itinerary_id : "",
+            cost : "",
+            itinList : [],
+            showModalSchedule : false,
+            iternaryidforschedule : "",
+            showModalScheduleUpdate : false,
+            scheduleidforupdate : ""
             }
 
         // console.log("Iternaries data is here ", this.props.destinationData)
     }
 
+
+
+
+
+
+    componentDidMount() {
+        // this.props.onGetAll();
+        this.props.onGetAllItin();
+    }
+
+
+
+
+    componentDidUpdate(prevProps){
+        const {getGetAllData, getGetAllItinData} = this.props ;
+
+        // if (prevProps.getGetAllData.isLoading && !getGetAllData.isLoading ) {
+        //     // console.log("update getall", getGetAllData)
+        //     this.setState({accList:getGetAllItinData.data})
+        // }   
+
+        
+
+        if (prevProps.getGetAllItinData.isLoading && !getGetAllItinData.isLoading ) {
+            this.setState({itinList:getGetAllItinData.data})
+            // console.log("ITIN IS HERE :" , this.state.ItinList)
+
+        } 
+        
+        
+        
+        
+
+
+       
+
+    }
+
+
+
+
+
+    
+
     _deleteButtonPressed(id){
 
         
 
-        console.log(`Delete Itenary button for accomodate id ${id} is pressed`)
+        // console.log(`Delete Itenary button for accomodate id ${id} is pressed`)
 
-           this.props.ondeleteItin(id)
+           this.props.ondeleteItin(id);
+
+
+           Alert.alert("Success", "Your iternaries has been deleted from your dashboard",[
+            {
+                text : "OK",
+                onPress : () => {this.props.onGetAllItin()}
+            }
+        ]) 
+
            
-        } 
+           
+        }
+
+
+
+        _scheduleDeleteButtonPressed(id){
+
+            console.log(id)
+            this.props.onDeleteSchedule(id)
+
+            Alert.alert("Success", "Your schedule has been deleted from your dashboard",[
+                {
+                    text : "OK",
+                    onPress : () => {this.props.onGetAllItin()}
+                }
+            ]) 
+
+        }
+
+
+        _scheduleUpdateButtonPressed(id){
+
+            this.setState({showModalScheduleUpdate: true, scheduleidforupdate : id})
+
+            console.log(id)
+
+
+
+           
+            
+
+        }
+
+
+
+        updateScheduleModalButtonisPressed(){
+
+
+            console.log(this.state.scheduleidforupdate)
+
+
+
+            const data = {
+
+                id : this.state.scheduleidforupdate,
+                hour : this.state.hour,
+                minute : this.state.minute,
+                title : this.state.title,
+                description : this.state.description,
+                cost : this.state.cost,
+
+            }
+
+            
+
+
+            console.log(data)
+            this.props.onUpdateSchedule(data)
+            Alert.alert("Success", "Your schedule has been updated",[
+                {
+                    text : "OK",
+                    onPress : () => {this.props.onGetAllItin()}
+                }
+            ]) 
+            this.setState({showModalScheduleUpdate: false})
+
+            
+        }
+
+
+
+        _renderItemList2(item){
+            // console.log("itineary render item 2 " ,item.item.itinerary_id)
+       
+
+
+        return(
+            <View style = {{borderColor : "red", borderWidth : 1, borderRadius : 10, marginVertical : 10}}>
+                 <View style = {{top : 0, right : 0, flexDirection : "row"}}>
+                    <TouchableOpacity onPress = {() => this._scheduleUpdateButtonPressed(item.item.id)} >
+                        <Ionicons  name= "ios-open" style = {styles.cardDetails}/>   
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress = {() => this._scheduleDeleteButtonPressed(item.item.id)}>
+                        <Ionicons  name= "ios-trash" style = {styles.cardDetails}/>   
+                    </TouchableOpacity>
+                </View>
+
+                <Text>Iternary ID {item.item.itinerary_id}</Text>
+                <Text>Cost {item.item.cost}</Text>
+                <Text>Description {item.item.description}</Text>
+                <Text>Hour {item.item.hour}</Text>
+                <Text>ID {item.item.id}</Text>
+                <Text>Minutes {item.item.minute}</Text>
+                <Text>Title {item.item.title}</Text>
+
+
+         
+
+
+
+            </View>
+
+        )
+
+
+    }
+
+
+
+
+    addScheduleButtonisPressed(item){
+
+        this.setState({showModalSchedule:true, iternaryidforschedule: item})
+
+    }
+    addScheduleModalButtonisPressed(){
+
+        const data ={ 
+        itinerary_id : this.state.iternaryidforschedule,
+         hour : this.state.hour,
+         minute : this.state.minute,
+         title : this.state.title,
+         description : this.state.description,
+         cost : this.state.cost,
+
+            }
+
+
+        console.log(data)
+
+        this.props.onCreateSchedule(data)
+        this.setState({showModalSchedule:false,
+            hour : "",
+            minute : "",
+            title : "",
+            description : "",
+            itinerary_id : "",
+            cost : "",
+        })
+        Alert.alert("Success", "Your new schedule has been added to your dashboard",[
+            {
+                text : "OK",
+
+            }
+        ]) 
+
+    }
+
+
 
     _renderItemList(item){
 
-        console.log(item)
+        // console.log("render item ", item.item.schedules[0])
+
+        
         return(
-            <View style = {styles.card}>
-                <Text>{item.item.id}</Text>
-                <Text>{item.item.day}</Text>
+            
+           
+                <View style = {styles.card}>
+                <Text>Iternary ID {item.item.id}</Text>
+                <Text> Iternary day {item.item.day}</Text>
+                {/* <Text> Destination ID {item.item.destination_id} and {this.props.destinationID}</Text> */}
+
+                 <FlatList
+
+                style = {{backgroundColor : null}}
+                data = {item.item.schedules}
+                renderItem = {(list) => this._renderItemList2(list)}
+                numColumns = {1}
+                contentContainerStyle= {{alignItems : "center"}}
+                // horizontal = {true}
+                showsHorizontalScrollIndicator={false}
+
+                    
+            
+                >
+
+                </FlatList>
+
+
                 <View style = {{position : "absolute", top : 0, right : 0, flexDirection : "row"}}>
                     <TouchableOpacity onPress = {() => {console.log("HIT update")}} >
                         <Ionicons  name= "ios-open" style = {styles.cardDetails}/>   
@@ -62,16 +297,23 @@ class Iternaries extends React.Component{
                         <Ionicons  name= "ios-trash" style = {styles.cardDetails}/>   
                     </TouchableOpacity>
                 </View>
-            </View>
+
+
+                <TouchableOpacity style = {{position : "absolute", bottom : 10, left : 20}} onPress = {()=>this.addScheduleButtonisPressed(item.item.id)}>
+                        <Ionicons  name= "md-calendar" style = {{ fontSize : 50, color : MAIN_COLOR}}/>
+                </TouchableOpacity>
+
+                </View>
+            
 
         )
     }
 
 
     addIternaryButtonisPressed(){
-        console.log("Pressed add Iternary button");
+        // console.log("Pressed add Iternary button");
             this.setState({showModal:true})
-            console.log(this.state.showModal)
+            // console.log(this.state.showModal)
 
     }
 
@@ -81,22 +323,34 @@ class Iternaries extends React.Component{
         const data = {
             destination_id : this.props.destinationID,
             day : this.state.day,
+            hour : this.state.hour,
+            minute : this.state.minute,
+            title : this.state.title,
+            description : this.state.description,
+            cost : this.state.cost,
+            itinerary_id : this.state.itinerary_id
+           
         }
         console.log(data)
-        this.props.oncreateItin(data)
+        // this.props.oncreateItin(data)
+        this.setState({showModal :false})
 
     }
     render(){
+
+        
+        const itindataforspecificID = this.state.itinList.filter(itin => itin.destination_id == this.props.destinationID)
+        // console.log("checkdata",itindataforspecificID);
         return (
             <View style = {styles.mainContainer}>
 
-                <Text style = {styles.cardTitle}>Iternaries</Text>
+                <Text style = {styles.cardTitle}>Itineraries</Text>
 
                
                 <FlatList
 
                 style = {{backgroundColor : null}}
-                data = {this.props.destinationData}
+                data = {itindataforspecificID}
                 renderItem = {(item) => this._renderItemList(item)}
                 numColumns = {1}
                 contentContainerStyle= {{alignItems : "center"}}
@@ -143,11 +397,186 @@ class Iternaries extends React.Component{
                   
                   />
                 
-                  
 
 
 
                 <InputButton buttonName = "Add Iternary  " navigate = {() => this.addIternaryModalButtonisPressed()} />
+
+
+
+                </View>
+                </View>
+
+                        </ScrollView>
+                    </View>
+
+                </Modal>
+                }
+            {this.state.showModalSchedule && 
+                <Modal
+                    animationType="fade"
+                    transparent={true}
+                >
+
+                     <View style = {styles.ModalFlex}>
+                        <ScrollView style = {styles.ModalBackGround}>
+                            <TouchableOpacity style = {{position : "absolute", right : 0, top : 0, zIndex : 3}} onPress = {() => this.setState({showModalSchedule : false})}>
+                                <Text style = {{color : "red"}}>CLOSE</Text>
+                            </TouchableOpacity>
+
+                            <View style= {styles.centerScrollView}>
+                
+                                <View style = {styles.ModalBackGroundInside}>
+
+                            
+
+                
+                
+
+                
+                
+                <InputForm 
+                  inputPlaceHolder = "Hour" 
+                  inputKeyType = "number-pad" 
+                  inputSecure = {false} 
+                  icon = "ios-arrow-dropleft"
+                  onChange = {(hour)=>this.setState({hour:hour}) }
+                  
+                  
+                  />
+                <InputForm 
+                  inputPlaceHolder = "Minutes" 
+                  inputKeyType = "number-pad" 
+                  inputSecure = {false} 
+                  icon = "ios-arrow-dropleft"
+                  onChange = {(minute)=>this.setState({minute:minute}) }
+                  
+                  
+                  />
+                <InputForm 
+                  inputPlaceHolder = "title" 
+                  inputKeyType = "default" 
+                  inputSecure = {false} 
+                  icon = "ios-arrow-dropleft"
+                  onChange = {(title)=>this.setState({title:title}) }
+                  
+                  
+                  />
+                <InputForm 
+                  inputPlaceHolder = "description" 
+                  inputKeyType = "title" 
+                  inputSecure = {false} 
+                  icon = "ios-arrow-dropleft"
+                  onChange = {(description)=>this.setState({description:description}) }
+                  
+                  
+                  />
+
+
+
+                <InputForm 
+                  inputPlaceHolder = "Cost" 
+                  inputKeyType = "number-pad" 
+                  inputSecure = {false} 
+                  icon = "ios-arrow-dropleft"
+                  onChange = {(cost)=>this.setState({cost:cost}) }
+                  
+                  
+                 />
+                
+                  
+
+
+
+                <InputButton buttonName = "Add Schedule  " navigate = {() => this.addScheduleModalButtonisPressed()} />
+
+
+
+                </View>
+                </View>
+
+                        </ScrollView>
+                    </View>
+
+                </Modal>
+                }
+            {this.state.showModalScheduleUpdate && 
+                <Modal
+                    animationType="fade"
+                    transparent={true}
+                >
+
+                     <View style = {styles.ModalFlex}>
+                        <ScrollView style = {styles.ModalBackGround}>
+                            <TouchableOpacity style = {{position : "absolute", right : 0, top : 0, zIndex : 3}} onPress = {() => this.setState({showModalScheduleUpdate : false})}>
+                                <Text style = {{color : "red"}}>CLOSE</Text>
+                            </TouchableOpacity>
+
+                            <View style= {styles.centerScrollView}>
+                
+                                <View style = {styles.ModalBackGroundInside}>
+
+                            
+
+                
+                
+
+                
+                
+                <InputForm 
+                  inputPlaceHolder = "Hour" 
+                  inputKeyType = "number-pad" 
+                  inputSecure = {false} 
+                  icon = "ios-arrow-dropleft"
+                  onChange = {(hour)=>this.setState({hour:hour}) }
+                  
+                  
+                  />
+                <InputForm 
+                  inputPlaceHolder = "Minutes" 
+                  inputKeyType = "number-pad" 
+                  inputSecure = {false} 
+                  icon = "ios-arrow-dropleft"
+                  onChange = {(minute)=>this.setState({minute:minute}) }
+                  
+                  
+                  />
+                <InputForm 
+                  inputPlaceHolder = "title" 
+                  inputKeyType = "default" 
+                  inputSecure = {false} 
+                  icon = "ios-arrow-dropleft"
+                  onChange = {(title)=>this.setState({title:title}) }
+                  
+                  
+                  />
+                <InputForm 
+                  inputPlaceHolder = "description" 
+                  inputKeyType = "title" 
+                  inputSecure = {false} 
+                  icon = "ios-arrow-dropleft"
+                  onChange = {(description)=>this.setState({description:description}) }
+                  
+                  
+                  />
+
+
+
+                <InputForm 
+                  inputPlaceHolder = "Cost" 
+                  inputKeyType = "number-pad" 
+                  inputSecure = {false} 
+                  icon = "ios-arrow-dropleft"
+                  onChange = {(cost)=>this.setState({cost:cost}) }
+                  
+                  
+                 />
+                
+                  
+
+
+
+                <InputButton buttonName = "Update Schedule  " navigate = {() => this.updateScheduleModalButtonisPressed()} />
 
 
 
@@ -183,7 +612,7 @@ const styles = {
 
    card : {
     width : 250,
-    height : 300,
+    minHeight : 300,
     borderColor : MAIN_COLOR,
     borderWidth : 1, 
     marginVertical : 15, 
@@ -293,12 +722,21 @@ const styles = {
 
 
 const mapStateToProps = (store) => ({
-    getGetAllData : Actions.getGetAllData(store)
+    getGetAllData : Actions.getGetAllData(store),
+    getGetAllItinData : Actions.getGetAllItinData(store)
+
+
 })
 
 const mapDispatchToProps = {
    ondeleteItin: Actions.deleteItin,
    oncreateItin:Actions.createItin,
+   onGetAllItin : Actions.getAllItin,
+   onCreateSchedule : Actions.createSchedule,
+   onDeleteSchedule : Actions.deleteSchedule,
+   onUpdateSchedule : Actions.editSchedule,
+   onGetAll : Actions.getAll
+   
 
 };
 

@@ -181,7 +181,7 @@ class Dashboard extends React.Component{
 
 
                         <TouchableOpacity onPress = {() => this.addUserButtonPressed(item.item)}>
-                            <Text style = {{backgroundColor : MAIN_COLOR, fontSize : 10, padding : 5, borderRadius :  5, color : "white", margin : 2.5, width : 70, textAlign : "center"}}>Add User </Text>
+                            <Text style = {{backgroundColor : MAIN_COLOR, fontSize : 10, padding : 5, borderRadius :  5, color : "white", margin : 2.5, width : 70, textAlign : "center"}}>Add Buddy </Text>
                             {/* <Ionicons  name= "md-person-add" style = {{fontSize : 20, color : MAIN_COLOR, margin : 2.5, position : "absolute", bottom : 20, right : 0}}/> */}
                         </TouchableOpacity>
 
@@ -385,7 +385,7 @@ class Dashboard extends React.Component{
         const data = {
 
 
-                trip_id : this.state.tripidforupdate,
+                id : this.state.tripidforupdate,
                 trip_name: this.state.trip_name,
                 origin: this.state.origin,
                 start_date: this.state.selectedStartDate,
@@ -400,6 +400,12 @@ class Dashboard extends React.Component{
 
 
         this.props.onUpdateTrip(data)
+
+        Alert.alert("Success", "Your trip has been updated")
+
+
+        this.setState({showModalUpdate:false})
+
 
     }
 
@@ -820,7 +826,7 @@ class Dashboard extends React.Component{
 
 
                             <QRScanner />
-                            <InputButton buttonName = "Add User  " navigate = {() => this._addUserModalButtonPressed()} />
+                            <InputButton buttonName = "Add Buddy  " navigate = {() => this._addUserModalButtonPressed()} />
 
 
 

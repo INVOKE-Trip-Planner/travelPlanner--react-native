@@ -133,8 +133,12 @@ class Auth extends React.Component{
 
             {/* <Banner/> */}
 
-            <Image source={require('assets/images/applogo.png')} style = {{width : 100, height : 100, }}/>
+            {/* <Image source={require('assets/images/applogo.png')} style = {{width : 100, height : 100, }}/> */}
 
+            <View style = {{flexDirection : "row"}}>
+                       <Text style = {{fontWeight : "normal", fontSize : 45}}>Trip</Text> 
+                       <Text style = {{color : MAIN_COLOR, fontWeight : "bold", fontSize : 45}}>Bantu </Text>
+            </View>
 
             <View style = {styles.mainBox}>
 

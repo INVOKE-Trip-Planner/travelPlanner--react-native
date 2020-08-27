@@ -7,6 +7,7 @@ import transport from "./transport";
 import itinerary from "./itinerary";
 import destination from "./destination";
 import profile from "./profile";
+import schedule from "./schedule";
 
 
 
@@ -19,5 +20,6 @@ export default function* submit() {
     fork(itinerary),
     fork(destination),
     fork(profile),
+    fork(schedule),
   ]);
 }

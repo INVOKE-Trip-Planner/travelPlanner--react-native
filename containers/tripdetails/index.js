@@ -54,10 +54,10 @@ class TripDetails extends React.Component{
                 itinerariesdatafortheid : item.item.itineraries,
                 })}
                 style = {{backgroundColor : null}}>
-                <View style = {[{marginHorizontal : 10, height : 80, width : 200, justifyContent : "center", alignItems : "flex-start", marginVertical : 10, paddingLeft: 10}, {backgroundColor : this.state.selected == item.item.id ? MAIN_COLOR : "white"}]}>
-                    <Text>Destination : {item.item.location}</Text>
-                    <Text>Start Date : {item.item.start_date}</Text>
-                    <Text>End Date : {item.item.end_date}</Text>
+                <View style = {[{borderRadius : 10, marginHorizontal : 10, height : 80, width : 200, justifyContent : "center", alignItems : "flex-start", marginVertical : 10, paddingLeft: 10}, {backgroundColor : this.state.selected == item.item.id ? MAIN_COLOR : "white"}]}>
+                    <Text style = {[{color : this.state.selected == item.item.id ? "white" : "black"}]}>Destination : {item.item.location}</Text>
+                    <Text style = {[{color : this.state.selected == item.item.id ? "white" : "black"}]}>Start Date : {item.item.start_date}</Text>
+                    <Text style = {[{color : this.state.selected == item.item.id ? "white" : "black"}]}>End Date : {item.item.end_date}</Text>
                 </View>
 
 
@@ -109,16 +109,16 @@ class TripDetails extends React.Component{
                 { this.state.showfiltertripdestination &&
                 <View style = {{flexDirection :"row",width : "100%", justifyContent : "space-between", paddingHorizontal : 20}}>
                     <TouchableOpacity onPress = {() => this.setState({showaaccommodation: true, showtransports: true, showitineraries: true, filterselected :this.state.all })}>
-                        <Text style = {{color : this.state.filterselected == this.state.all ? "green" : "blue"}}>All</Text>
+                        <Text style = {{color : this.state.filterselected == this.state.all ? "black" : MAIN_COLOR}}>All</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress = {() => this.setState({showaaccommodation: true, showtransports: false, showitineraries: false, filterselected :this.state.accommodations })}>
-                        <Text style = {{color : this.state.filterselected == this.state.accommodations ? "green" : "blue"}}>Accomodation</Text>
+                        <Text style = {{color : this.state.filterselected == this.state.accommodations ? "black" : MAIN_COLOR}}>Accomodation</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress = {() => this.setState({showaaccommodation: false, showtransports: true, showitineraries: false, filterselected :this.state.transports })}>
-                        <Text style = {{color : this.state.filterselected == this.state.transports ? "green" : "blue"}}>Transportation</Text>
+                        <Text style = {{color : this.state.filterselected == this.state.transports ? "black" : MAIN_COLOR}}>Transportation</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress = {() => this.setState({showaaccommodation: false, showtransports: false, showitineraries: true, filterselected :this.state.iternary })}>
-                        <Text style = {{color : this.state.filterselected == this.state.iternary ? "green" : "blue"}}>Iternaries</Text>
+                        <Text style = {{color : this.state.filterselected == this.state.iternary ? "black" : MAIN_COLOR}}>Iternaries</Text>
                     </TouchableOpacity>
                     
                 </View>

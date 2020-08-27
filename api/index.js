@@ -100,6 +100,22 @@ export const deleteDes = (data, headers) => {
   // console.log("data id:",data);
   return fetchApi('post', 'api/destination/delete', data, headers)
 };
+//-----------SCHEDULE----------------------------
+export const getAllSchedule = (headers) => {
+  return fetchApi('get', "api/schedule", null, headers)
+};
+export const createSchedule = (data, headers) => {
+  console.log(data);
+  console.log(headers);
+  return fetchApi('post', "api/schedule", data, headers)
+};
+export const editSchedule = (data, headers) => {
+  return fetchApi('post', 'api/schedule/update', data, headers)
+};
+export const deleteSchedule = (data, headers) => {
+  // console.log("data id:",data);
+  return fetchApi('post', 'api/schedule/delete', data, headers)
+};
 
 
 
