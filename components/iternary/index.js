@@ -186,17 +186,17 @@ class Iternaries extends React.Component{
 
 
         return(
-            <View style = {{borderColor : "red", borderWidth : 1, borderRadius : 10, marginVertical : 10}}>
-                 <View style = {{top : 0, right : 0, flexDirection : "row"}}>
-                    <TouchableOpacity onPress = {() => this._scheduleUpdateButtonPressed(item.item.id)} >
-                        <Ionicons  name= "ios-open" style = {styles.cardDetails}/>   
+            <View style = {{borderColor : MAIN_COLOR, borderWidth : 1, borderRadius : 10, marginRight : 30, marginVertical : 10, height : 250, width : 150, paddingVertical : 40, justifyContent : "space-between"}}>
+                 <View style = {{position : "absolute",top : 0, right : 0, flexDirection : "row", width : "100%", backgroundColor : null}}>
+                    <TouchableOpacity style = {{width : "50%", justifyContent : "center", alignItems : "center"}} onPress = {() => this._scheduleUpdateButtonPressed(item.item.id)} >
+                        <Ionicons  name= "md-open" style = {styles.cardDetails}/>   
                     </TouchableOpacity>
-                    <TouchableOpacity onPress = {() => this._scheduleDeleteButtonPressed(item.item.id)}>
-                        <Ionicons  name= "ios-trash" style = {styles.cardDetails}/>   
+                    <TouchableOpacity style = {{width : "50%", justifyContent : "center", alignItems : "center"}} onPress = {() => this._scheduleDeleteButtonPressed(item.item.id)}>
+                        <Ionicons  name= "md-close-circle" style = {styles.cardDetails}/>   
                     </TouchableOpacity>
                 </View>
 
-                <Text>Iternary ID {item.item.itinerary_id}</Text>
+                {/* <Text>Itinerary ID {item.item.itinerary_id}</Text> */}
                 <Text>Cost {item.item.cost}</Text>
                 <Text>Description {item.item.description}</Text>
                 <Text>Hour {item.item.hour}</Text>
@@ -251,6 +251,7 @@ class Iternaries extends React.Component{
         Alert.alert("Success", "Your new schedule has been added to your dashboard",[
             {
                 text : "OK",
+                onPress : () => this.props.onGetAllItin
 
             }
         ]) 
@@ -268,8 +269,8 @@ class Iternaries extends React.Component{
             
            
                 <View style = {styles.card}>
-                <Text>Iternary ID {item.item.id}</Text>
-                <Text> Iternary day {item.item.day}</Text>
+                {/* <Text>Iternary ID {item.item.id}</Text> */}
+                <Text style = {{textAlign : "center", fontWeight : "bold"}}> Itineraries For Day {item.item.day}</Text>
                 {/* <Text> Destination ID {item.item.destination_id} and {this.props.destinationID}</Text> */}
 
                  <FlatList
@@ -279,7 +280,7 @@ class Iternaries extends React.Component{
                 renderItem = {(list) => this._renderItemList2(list)}
                 numColumns = {1}
                 contentContainerStyle= {{alignItems : "center"}}
-                // horizontal = {true}
+                horizontal = {true}
                 showsHorizontalScrollIndicator={false}
 
                     
@@ -300,7 +301,7 @@ class Iternaries extends React.Component{
 
 
                 <TouchableOpacity style = {{position : "absolute", bottom : 10, left : 20}} onPress = {()=>this.addScheduleButtonisPressed(item.item.id)}>
-                        <Ionicons  name= "md-calendar" style = {{ fontSize : 50, color : MAIN_COLOR}}/>
+                        <Ionicons  name= "md-calendar" style = {{ fontSize : 30, color : MAIN_COLOR}}/>
                 </TouchableOpacity>
 
                 </View>
@@ -322,19 +323,32 @@ class Iternaries extends React.Component{
     addIternaryModalButtonisPressed(){
         const data = {
             destination_id : this.props.destinationID,
-            day : this.state.day,
-            hour : this.state.hour,
-            minute : this.state.minute,
-            title : this.state.title,
-            description : this.state.description,
-            cost : this.state.cost,
-            itinerary_id : this.state.itinerary_id
+            day : this.state.day
+           
            
         }
-        console.log(data)
-        // this.props.oncreateItin(data)
-        this.setState({showModal :false})
 
+        if(data.day.length == 0) {
+            Alert.alert("Failed", "Please key in the day number you wish to add for iternary",[
+                {
+                    text : "OK",
+                    // onPress : () => this.props.ongetAllDes()
+                }
+            ])
+        }
+
+
+        else {
+        console.log(data)
+        this.props.oncreateItin(data)
+        Alert.alert("Success", "New iternary has been added to your dashboard",[
+            {
+                text : "OK",
+                onPress : () => this.props.onGetAllItin()
+            }
+        ])
+        this.setState({showModal :false})
+}
     }
     render(){
 

@@ -205,19 +205,17 @@ class Transportation extends React.Component{
 
 
             <View style = {styles.card}>
-                <Text>{item.item.id}</Text>
-                <Text>{item.item.cost}</Text>
-                <Text>{item.item.origin}</Text>
-                <Text>{item.item.destination}</Text>
-                <Text>{item.item.departure_date}</Text>
-                <Text>{item.item.departure_hour}</Text>
-                <Text>{item.item.departure_minute}</Text>
-                <Text>{item.item.arrival_date}</Text>
-                <Text>{item.item.arrival_hour}</Text>
-                <Text>{item.item.arrival_minute}</Text>
-                <Text>{item.item.cost}</Text>
-                <Text>{item.item.booking_id}</Text>
-                <Text>{item.item.operator}</Text>
+                <Text>ID : {item.item.id}</Text>
+                <Text>Cost : {item.item.cost}</Text>
+                <Text>Origin : {item.item.origin}</Text>
+                <Text>Destination : {item.item.destination}</Text>
+                <Text>Departure Date : {item.item.departure_date}</Text>
+                <Text>Departure Time : {item.item.departure_hour} : {item.item.departure_minute}</Text>
+                <Text>Arrival Date : {item.item.arrival_date}</Text>
+                <Text>Arrival Time : {item.item.arrival_hour} : {item.item.arrival_minute}</Text>
+                <Text>Mode : {item.item.mode}</Text>
+                {/* <Text>{item.item.booking_id}</Text> */}
+                <Text>Operator : {item.item.operator}</Text>
                 {/* <Text>{item.item.destination_id} and { this.props.destinationID}</Text> */}
                 <View style = {{position : "absolute", top : 0, right : 0, flexDirection : "row"}}>
                     <TouchableOpacity onPress = {() => {this._updateButtonPressed(item.item.id)}} >

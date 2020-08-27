@@ -364,7 +364,12 @@ class Dashboard extends React.Component{
 
         console.log(data);
         this.props.onCreateDes(data);
-        Alert.alert("Success", "Your new destination has been added to your trip")
+        Alert.alert("Success", "Your new destination has been added to your trip",[
+            {
+                text : "OK",
+                onPress : () => this.props.ongetAllDes()
+            }
+        ])
         }
     }
 
@@ -924,7 +929,8 @@ const mapDispatchToProps = {
     onDeleteTrip: Actions.deleteTrip,
     onUpdateTrip: Actions.updateTrip,
     //
-    onCreateDes : Actions.createDes
+    onCreateDes : Actions.createDes,
+    ongetAllDes : Actions.getAllDes
 };
 
 

@@ -74,7 +74,7 @@ export const getAllItin = (headers) => {
 export const createItin = (data, headers) => {
   console.log(data);
   console.log(headers);
-  return fetchApi('post', "api/itinerary", data, headers)
+  return fetchApi('post', "api/itinerary/create", data, headers)
 };
 export const editItin = (data, headers) => {
   return fetchApi('post', 'api/itinerary/update', data, headers)

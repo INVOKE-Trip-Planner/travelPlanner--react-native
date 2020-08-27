@@ -210,12 +210,12 @@ class Profile extends React.Component{
                 </View>
 
                 <TouchableOpacity style = {{marginVertical : 10, backgroundColor : MAIN_COLOR, width : 200, height : 50, justifyContent : "center", borderRadius : 20 }} onPress = {() => {this.logoutPressed()}}>
-                    <Text style = {{color : "white", textAlign :"center"}}>LOGOUT</Text>
+                    <Text style = {{color : "white", textAlign :"center"}}>Logout</Text>
                 </TouchableOpacity>
 
 
                 <TouchableOpacity style = {{marginVertical : 10, backgroundColor : MAIN_COLOR, width : 200, height : 50, justifyContent : "center", borderRadius : 20 }} onPress = {() => {this.setState({showModal:true})}}>
-                    <Text style = {{color : "white", textAlign :"center"}}>UPDATE PROFILE</Text>
+                    <Text style = {{color : "white", textAlign :"center"}}>Update Profile</Text>
                 </TouchableOpacity>
 
 
